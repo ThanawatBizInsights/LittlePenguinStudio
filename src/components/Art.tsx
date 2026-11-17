@@ -9,11 +9,6 @@ export function hasArt(slot: ArtSlot): boolean {
   return fs.existsSync(path.join(process.cwd(), "public", artSlots[slot]));
 }
 
-/** Map of slot → URL for every slot that has a real file (for client components). */
-export function availableArt(slots: ArtSlot[]): Partial<Record<ArtSlot, string>> {
-  return Object.fromEntries(slots.filter(hasArt).map((s) => [s, artSlots[s]]));
-}
-
 /**
  * Renders supplied artwork when present, otherwise the SVG fallback.
  * Decorative by default (empty alt); pass `alt` when the image carries meaning.

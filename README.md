@@ -62,12 +62,21 @@ To regenerate the favicon PNG and social image after design changes, run `npm ru
 2. Create `src/content/games/<slug>.tsx` with its support and privacy content (copy the Animal Pairs file as a template, then audit the new app), and register it in `src/content/games/index.ts`.
 3. Rebuild. The home games grid, support hub, parents page, privacy overview, footer, sitemap and `/games/<slug>/`, `/games/<slug>/support/` and `/games/<slug>/privacy/` are all generated.
 
-## Deploy (when ready; not done yet)
+## Deploy to Cloudflare Pages
 
-In Cloudflare, go to Workers & Pages → Pages → Connect to Git and choose this repo, with these settings:
-- Framework preset: Next.js (Static HTML Export)
-- Build command: `npm run build`
-- Output: `out`
-- Environment variable: `NODE_VERSION=22`
+The Pages project is called `littlepenguinstudio` (production branch `main`). Config is in `wrangler.toml`, Node 22 is pinned in `.node-version`, and `public/_headers` sets the security headers.
 
-`public/_headers` sets the security headers. See `docs/setup-guide.md` for the domain, email and App Store steps, and `TODO.md` for open items.
+**From this machine (Wrangler):** set `CLOUDFLARE_API_TOKEN` (permission: *Account → Cloudflare Pages → Edit*) and `CLOUDFLARE_ACCOUNT_ID`, then run:
+
+```bash
+npm run deploy:preview      # → https://preview.littlepenguinstudio.pages.dev (not production)
+```
+```bash
+npm run deploy:production   # refuses unless npm run check:release passes
+```
+
+Wrangler 4.15x tries to move Pages projects onto Workers. If `wrangler pages project create` fails, add `--force` to stay on classic Pages.
+
+**Or connect Git (auto-deploys):** in Workers & Pages, open the project → Settings → Builds → Connect to Git → this repo. Use build command `npm run build` and output directory `out`. Pushes to `main` deploy production; other branches get preview URLs.
+
+Do not attach the custom domain or deploy `main` until `npm run check:release` passes. See `docs/setup-guide.md` for domain and email, and `TODO.md` for open items.

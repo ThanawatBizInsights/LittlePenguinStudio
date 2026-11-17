@@ -1,0 +1,5 @@
+# Cloudflare Pages project for littlepenguinstudio.com (static Next.js export).
+# Build: npm run build  →  output: out/
+name = "littlepenguinstudio"
+pages_build_output_dir = "out"
+compatibility_date = "2026-11-01"
