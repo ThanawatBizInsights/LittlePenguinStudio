@@ -82,7 +82,9 @@ export default async function GamePage({ params }: { params: Promise<{ slug: str
       <CurvedSection color="#e6dbf7" className="py-12" labelledBy="screens">
         <Container>
           <h2 id="screens" className="text-4xl">Screenshots</h2>
-          <p className="mb-8 mt-2 text-ink-soft">Captured from the working app on iPad.</p>
+          <p className="mb-8 mt-2 text-ink-soft">
+            Captured from the working app on {[...new Set(game.screenshots.map((s) => s.device))].join(" and ")}.
+          </p>
           <ScreenshotGallery game={game} />
         </Container>
       </CurvedSection>

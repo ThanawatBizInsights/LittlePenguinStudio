@@ -9,7 +9,7 @@ Run `npm run check:release`. It must pass before anything is deployed.
 - [ ] Animal Pairs `privacy.effectiveDate`: [EFFECTIVE DATE], then `privacy.status: "published"`
 - [ ] Animal Pairs `details.ageRating`: [AGE RATING], from App Store Connect's age-rating questionnaire (and Kids age band if used)
 - [ ] Animal Pairs `details.availability`: [COUNTRIES OR REGIONS] from App Store Connect
-- [ ] Test the app on an iPhone (the website says "iPad and iPhone"; all screenshots are iPad)
+- [x] App checked on iPhone (screenshots supplied 17 Nov 2026 and added to the game page)
 - [ ] After approval: `appStoreUrl` ([APP STORE URL]) and `status: "available"`. The App Store button then appears.
 
 ## iOS app (see docs/animal-pairs-privacy-audit.md)
@@ -20,6 +20,5 @@ Run `npm run check:release`. It must pass before anything is deployed.
 - [ ] Confirm the release build is built from the audited code; App Privacy answer: Data Not Collected, no tracking
 
 ## Website
-- [ ] Optional: iPhone screenshots (current ones are iPad)
 - [ ] Optional: plush artwork files for `src/content/art.ts`
 - [ ] Domain, mailbox and Cloudflare Pages (`docs/setup-guide.md`)

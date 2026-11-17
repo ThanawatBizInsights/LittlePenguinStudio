@@ -30,7 +30,7 @@ export function AppIcon({ game, className = "" }: { game: Game; className?: stri
 
 /** Key art: a real screenshot in a tablet frame with the app icon. */
 export function GameKeyArt({ game, className = "relative" }: { game: Game; className?: string }) {
-  const shot = game.screenshots[0];
+  const shot = game.screenshots.find((s) => s.device === "iPad") ?? game.screenshots[0];
   return (
     <div className={className}>
       {shot && (
@@ -117,23 +117,45 @@ export function AppInfoTable({ details, caption }: { details: AppDetails; captio
   );
 }
 
-/** Real screenshots from the working app, captioned. */
+/** Real screenshots from the working app, captioned and grouped by device. */
 export function ScreenshotGallery({ game }: { game: Game }) {
+  const devices = (["iPhone", "iPad"] as const).filter((d) => game.screenshots.some((s) => s.device === d));
   return (
-    <ul className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 lg:grid-cols-5">
-      {game.screenshots.map((s) => (
-        <li key={s.src} className="w-[62vw] max-w-64 shrink-0 snap-center sm:w-auto sm:max-w-none">
-          <figure>
-            <div className="rounded-[1.4rem] bg-ink p-1.5 shadow-[0_12px_24px_-12px_rgba(28,35,80,0.5)]">
-              <img src={s.src} alt={s.alt} width={s.width} height={s.height} loading="lazy" className="h-auto w-full rounded-[1rem]" />
-            </div>
-            <figcaption className="mt-3 text-center font-display text-base font-semibold leading-snug">
-              {s.caption}
-              <span className="block font-sans text-sm font-normal text-ink-soft">{s.device}</span>
-            </figcaption>
-          </figure>
-        </li>
-      ))}
-    </ul>
+    <div className="space-y-10">
+      {devices.map((device) => {
+        const shots = game.screenshots.filter((s) => s.device === device);
+        return (
+          <section key={device} aria-label={`Screenshots on ${device}`}>
+            <h3 className="mb-4 text-2xl">On {device}</h3>
+            <ul
+              className={`-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:overflow-visible sm:px-0 ${
+                device === "iPhone" ? "sm:grid-cols-4" : "sm:grid-cols-3 lg:grid-cols-5"
+              }`}
+            >
+              {shots.map((s) => (
+                <li
+                  key={s.src}
+                  className={`shrink-0 snap-center sm:w-auto sm:max-w-none ${device === "iPhone" ? "w-[46vw] max-w-52" : "w-[62vw] max-w-64"}`}
+                >
+                  <figure>
+                    <div className={`bg-ink p-1.5 shadow-[0_12px_24px_-12px_rgba(28,35,80,0.5)] ${device === "iPhone" ? "rounded-[1.8rem]" : "rounded-[1.4rem]"}`}>
+                      <img
+                        src={s.src}
+                        alt={s.alt}
+                        width={s.width}
+                        height={s.height}
+                        loading="lazy"
+                        className={`h-auto w-full ${device === "iPhone" ? "rounded-[1.4rem]" : "rounded-[1rem]"}`}
+                      />
+                    </div>
+                    <figcaption className="mt-3 text-center font-display text-base font-semibold leading-snug">{s.caption}</figcaption>
+                  </figure>
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })}
+    </div>
   );
 }

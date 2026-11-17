@@ -58,7 +58,7 @@ export type Game = {
   status: GameStatus;
   /** Real App Store URL. Leave "" until the app is live — no button is shown otherwise. */
   appStoreUrl: string;
-  /** Real screenshots captured from the working app. Never concept art. */
+  /** Real screenshots captured from the working app. Never concept art. The first iPad one is used as key art. */
   screenshots: Screenshot[];
   details: AppDetails;
   /** Optional purchase, if it exists in the release build. */
@@ -209,6 +209,38 @@ export const games: Game[] = [
         width: 820,
         height: 1180,
         device: "iPad",
+      },
+      {
+        src: `${ap}/screenshots/iphone-home.webp`,
+        alt: "Animal Pairs home screen on iPhone: the Animal Pairs title, animal friends around a playground, Iris the kitten playing with a ball of wool, and a large Play button.",
+        caption: "The home screen",
+        width: 600,
+        height: 1298,
+        device: "iPhone",
+      },
+      {
+        src: `${ap}/screenshots/iphone-setup.webp`,
+        alt: "Set-up screen on iPhone with Classic selected, Exact Pose shown with a lock, and board sizes of 6 and 12 cards.",
+        caption: "Choose how to play",
+        width: 600,
+        height: 1298,
+        device: "iPhone",
+      },
+      {
+        src: `${ap}/screenshots/iphone-round.webp`,
+        alt: "A 12-card round on iPhone with 3 of 6 pairs found: matched bear, kitten and penguin pairs face up with green ticks, and a duckling and a bunny turned over.",
+        caption: "Matched pairs stay face up",
+        width: 600,
+        height: 1298,
+        device: "iPhone",
+      },
+      {
+        src: `${ap}/screenshots/iphone-pause.webp`,
+        alt: "Pause screen on iPhone titled Taking a break, with Keep playing, Start over and Home buttons.",
+        caption: "Taking a break",
+        width: 600,
+        height: 1298,
+        device: "iPhone",
       },
     ],
     details: {
