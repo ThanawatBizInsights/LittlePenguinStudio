@@ -3,6 +3,7 @@ import "@fontsource-variable/fredoka";
 import "@fontsource-variable/nunito";
 import "./globals.css";
 import { studio } from "@/content/site";
+import { isLive } from "@/content/env";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
@@ -11,6 +12,8 @@ export const metadata: Metadata = {
   title: { default: `${studio.name} — Playful little worlds for curious minds`, template: `%s · ${studio.name}` },
   description: `${studio.description} Our first game is Animal Pairs, a gentle animal matching game.`,
   applicationName: studio.name,
+  // Previews and drafts are never indexed; only the launched production build (SITE_LIVE=true) is.
+  robots: isLive ? undefined : { index: false, follow: false },
   openGraph: {
     type: "website",
     siteName: studio.name,

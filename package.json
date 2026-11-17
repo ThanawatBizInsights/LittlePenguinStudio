@@ -10,6 +10,8 @@
     "typecheck": "tsc --noEmit",
     "check": "npm run typecheck && npm run lint && npm run build",
     "check:release": "npm run build && node scripts/check-release.mjs",
+    "build:cloudflare": "node scripts/cf-build.mjs",
+    "preview:cloudflare": "npm run build && wrangler pages dev out --port 8788",
     "deploy:preview": "npm run build && wrangler pages deploy out --project-name littlepenguinstudio --branch preview --commit-dirty=true",
     "deploy:production": "npm run check:release && wrangler pages deploy out --project-name littlepenguinstudio --branch main"
   },

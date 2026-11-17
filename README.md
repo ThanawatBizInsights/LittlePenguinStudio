@@ -77,6 +77,14 @@ npm run deploy:production   # refuses unless npm run check:release passes
 
 Wrangler 4.15x tries to move Pages projects onto Workers. If `wrangler pages project create` fails, add `--force` to stay on classic Pages.
 
-**Or connect Git (auto-deploys):** in Workers & Pages, open the project → Settings → Builds → Connect to Git → this repo. Use build command `npm run build` and output directory `out`. Pushes to `main` deploy production; other branches get preview URLs.
+**Or connect Git (recommended, auto-deploys):** step-by-step in [`docs/cloudflare-testing.md`](docs/cloudflare-testing.md). Use build command **`npm run build:cloudflare`** and output directory `out`. Every non-`main` branch gets a preview URL. Builds of `main` (production) run the release check and **fail on purpose while any placeholder remains**.
 
-Do not attach the custom domain or deploy `main` until `npm run check:release` passes. See `docs/setup-guide.md` for domain and email, and `TODO.md` for open items.
+**Indexing:** every build is `noindex` with `Disallow: /` in robots.txt unless the environment variable `SITE_LIVE=true` is set. Set it only in Cloudflare's **Production** environment on launch day.
+
+**Test locally in Cloudflare's runtime** (applies `_headers`, redirects and the 404 page exactly like Pages):
+
+```bash
+npm run preview:cloudflare   # http://localhost:8788
+```
+
+Do not attach the custom domain or set `SITE_LIVE` until `npm run check:release` passes. See `docs/setup-guide.md` for domain and email, and `TODO.md` for open items.
