@@ -4,12 +4,12 @@ Run `npm run check:release`. It must pass before anything is deployed.
 
 ## Facts to supply (`src/content/site.ts`)
 - [ ] `studio.publisherName`: [LEGAL PUBLISHER NAME]. Must match the App Store seller (Individual enrollment: your legal name)
-- [ ] `studio.supportEmail`: [SUPPORT EMAIL]
-- [ ] `studio.privacyEmail`: [PRIVACY CONTACT EMAIL] (can be the same mailbox)
-- [ ] `studio.supportEmailRetention`: [EMAIL RETENTION PERIOD], e.g. "12 months"
+- [ ] `SUPPORT_EMAIL` at the top of `site.ts`: fills both [SUPPORT EMAIL] and [PRIVACY CONTACT EMAIL]
+- [x] Support email retention: "12 months after the last reply". Only true if you actually delete emails on that schedule
 - [ ] Animal Pairs `privacy.effectiveDate`: [EFFECTIVE DATE], then `privacy.status: "published"`
 - [ ] Animal Pairs `details.ageRating`: [AGE RATING], from App Store Connect's age-rating questionnaire (and Kids age band if used)
-- [ ] Animal Pairs `details.availability`: e.g. countries/regions, once chosen
+- [ ] Animal Pairs `details.availability`: [COUNTRIES OR REGIONS] from App Store Connect
+- [ ] Test the app on an iPhone (the website says "iPad and iPhone"; all screenshots are iPad)
 - [ ] After approval: `appStoreUrl` ([APP STORE URL]) and `status: "available"`. The App Store button then appears.
 
 ## iOS app (see docs/animal-pairs-privacy-audit.md)

@@ -90,12 +90,26 @@ export type Studio = {
   story: string;
 };
 
+/**
+ * Working support mailbox. Leave "" until it is set up and tested.
+ * The privacy contact uses the same address.
+ */
+const SUPPORT_EMAIL = "";
+
 export const studio: Studio = {
   name: "Little Penguin Studio",
+  /**
+   * The EXACT seller name shown in your Apple Developer account / App Store
+   * Connect (Individual enrollment: your legal name). Never the brand name.
+   */
   publisherName: "",
-  supportEmail: "",
-  privacyEmail: "",
-  supportEmailRetention: "",
+  supportEmail: SUPPORT_EMAIL,
+  privacyEmail: SUPPORT_EMAIL,
+  /**
+   * Only true if support emails are actually deleted 12 months after the
+   * last reply. Change this text if the practice changes.
+   */
+  supportEmailRetention: "12 months after the last reply",
   siteUrl: "https://littlepenguinstudio.com",
   tagline: "Playful little worlds for curious minds.",
   description:
@@ -153,6 +167,7 @@ export const games: Game[] = [
     icon: `${ap}/app-icon.webp`,
     wordmark: `${ap}/wordmark.webp`,
     status: "in-development",
+    /** Leave "" until the app has a live App Store product URL; the App Store button stays hidden until then. */
     appStoreUrl: "",
     screenshots: [
       {
@@ -197,6 +212,10 @@ export const games: Game[] = [
       },
     ],
     details: {
+      /**
+       * Only the rating produced by App Store Connect's age-rating questionnaire.
+       * Never use the intended audience (e.g. "about 3–7") here.
+       */
       ageRating: null,
       supportedDevices: "iPad and iPhone with iPadOS or iOS 17 or later",
       supportedLanguages: "English",
@@ -204,6 +223,7 @@ export const games: Game[] = [
         "Not needed to play. An internet connection is only used for App Store purchases, gift codes and restoring purchases.",
       advertising: "None",
       inAppPurchases: "One optional, one-time purchase: Full Game Unlock",
+      /** Countries or regions selected in App Store Connect → Pricing and Availability. */
       availability: null,
     },
     fullGameUnlock: {
@@ -211,7 +231,15 @@ export const games: Game[] = [
       free: ["Classic mode", "6- and 12-card boards", "All ten animal friends", "Sounds, hints and progress"],
       adds: ["Exact Pose mode", "16- and 20-card boards", "70 more pictures of the ten friends playing, napping, waving, celebrating, playing football, playing golf and cooking"],
     },
-    privacy: { status: "draft", effectiveDate: null },
+    privacy: {
+      /**
+       * Set "published" only once the policy page is live AND its statements
+       * have been verified against the release build.
+       */
+      status: "draft",
+      /** The date the final policy is published, e.g. "1 December 2026". */
+      effectiveDate: null,
+    },
     accent: "butter",
   },
 ];
@@ -258,6 +286,7 @@ export const PH = {
   effectiveDate: "[EFFECTIVE DATE]",
   ageRating: "[AGE RATING]",
   emailRetention: "[EMAIL RETENTION PERIOD]",
+  availability: "[COUNTRIES OR REGIONS]",
 } as const;
 
 export const nav = [
@@ -276,5 +305,6 @@ export function unresolvedFacts(game: Game): { label: string; where: string }[] 
   if (!studio.supportEmailRetention) out.push({ label: PH.emailRetention, where: "studio.supportEmailRetention" });
   if (!game.privacy.effectiveDate) out.push({ label: PH.effectiveDate, where: "privacy.effectiveDate" });
   if (!game.details.ageRating) out.push({ label: PH.ageRating, where: "details.ageRating" });
+  if (!game.details.availability) out.push({ label: PH.availability, where: "details.availability" });
   return out;
 }
