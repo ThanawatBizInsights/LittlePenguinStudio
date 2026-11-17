@@ -1,5 +1,20 @@
-# Cloudflare Pages project for littlepenguinstudio.com (static Next.js export).
-# Build: npm run build  →  output: out/
+# Cloudflare Worker (static assets) for littlepenguinstudio.com.
+# The site is a static Next.js export in out/; there is no Worker script.
+#
+# Workers Builds (Git) runs `npx wrangler deploy` on the production branch and
+# `npx wrangler versions upload` on other branches. Both run [build] first:
+# scripts/cf-build.mjs fails production (main) builds while placeholders
+# remain, so a draft can never be deployed — whatever build command is set
+# in the dashboard.
 name = "littlepenguinstudio"
-pages_build_output_dir = "out"
 compatibility_date = "2026-11-01"
+
+[build]
+command = "npm run build:cloudflare"
+
+[assets]
+directory = "./out"
+# Unknown paths get out/404.html with a real 404 status.
+not_found_handling = "404-page"
+# /games/animal-pairs → /games/animal-pairs/ (matches Next's trailingSlash: true).
+html_handling = "auto-trailing-slash"

@@ -11,9 +11,9 @@
     "check": "npm run typecheck && npm run lint && npm run build",
     "check:release": "npm run build && node scripts/check-release.mjs",
     "build:cloudflare": "node scripts/cf-build.mjs",
-    "preview:cloudflare": "npm run build && wrangler pages dev out --port 8788",
-    "deploy:preview": "npm run build && wrangler pages deploy out --project-name littlepenguinstudio --branch preview --commit-dirty=true",
-    "deploy:production": "npm run check:release && wrangler pages deploy out --project-name littlepenguinstudio --branch main"
+    "preview:cloudflare": "wrangler dev --port 8788",
+    "deploy:preview": "wrangler versions upload --preview-alias preview",
+    "deploy:production": "npm run check:release && WORKERS_CI_BRANCH=main wrangler deploy"
   },
   "dependencies": {
     "@fontsource-variable/fredoka": "5.3.0",

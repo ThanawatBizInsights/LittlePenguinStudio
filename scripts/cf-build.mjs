@@ -1,13 +1,14 @@
-// Cloudflare Pages build entry point (build command: `npm run build:cloudflare`).
+// Cloudflare build entry point. Runs from wrangler.toml's [build] command
+// (and can also be a Pages build command: `npm run build:cloudflare`).
 //
-// Cloudflare sets CF_PAGES_BRANCH during builds.
+// Workers Builds sets WORKERS_CI_BRANCH; Pages sets CF_PAGES_BRANCH.
 // - Production branch (main): runs the release check, which FAILS the build
 //   while any [PLACEHOLDER] or draft banner remains — so a draft can never
 //   reach production.
 // - Any other branch: a normal preview build (noindex unless SITE_LIVE=true).
 import { spawnSync } from "node:child_process";
 
-const branch = process.env.CF_PAGES_BRANCH ?? "";
+const branch = process.env.WORKERS_CI_BRANCH || process.env.CF_PAGES_BRANCH || "";
 const production = branch === (process.env.PRODUCTION_BRANCH || "main");
 const script = production ? "check:release" : "build";
 

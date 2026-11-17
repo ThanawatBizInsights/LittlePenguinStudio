@@ -1,40 +1,54 @@
 # Testing the website on Cloudflare
 
-The repo is connected to Cloudflare Pages through GitHub. Each branch other than `main` gets its own **preview link** that you can open on any device. `main` is production, and it will not build until every placeholder is filled in.
+The site is deployed as a **Cloudflare Worker with static assets**, built from GitHub by **Workers Builds**. Cloudflare's dashboard now creates a Worker (not a classic Pages project) when you import a Git repository; `wrangler.toml` is set up for that.
 
-## 1. Connect the repo (one time, ~5 minutes)
+How it behaves:
 
-1. Go to **dash.cloudflare.com** → **Workers & Pages** → **Create** → **Pages** tab → **Import an existing Git repository**.
-   (If Cloudflare offers to create a Worker instead, choose the **Pages** tab.)
-2. **Connect GitHub.** When GitHub asks which repositories the Cloudflare Pages app may access, choose **Only select repositories** → `ThanawatBizInsights/LittlePenguinStudio`.
-3. Select the repository and set:
+- **Production (`main`)**: the build runs the release check and **fails on purpose while any placeholder remains**, so a draft can never be deployed to production. This happens inside `wrangler deploy` (via `[build]` in `wrangler.toml`), whatever build command the dashboard has.
+- **Every other branch**: builds a **preview** with its own link that you can open on any device.
+- Every build is hidden from search engines (`noindex`, `robots.txt: Disallow`) until `SITE_LIVE=true` is set on launch day.
 
-   | Setting | Value |
-   |---|---|
-   | Project name | `littlepenguinstudio` |
-   | Production branch | `main` |
-   | Framework preset | None |
-   | Build command | `npm run build:cloudflare` |
-   | Build output directory | `out` |
-   | Root directory | *(leave empty)* |
-   | Environment variable | `NODE_VERSION` = `22` |
+## 1. Settings in the Cloudflare dashboard (one time)
 
-   Do **not** add `SITE_LIVE` yet.
-4. Click **Save and Deploy**. The first build is for `main` (production) and **will fail** with “Not ready to publish”, listing the missing facts. That's the safety check doing its job: nothing is published to production.
-5. Open the project → **Deployments**. If the work branch hasn't been built yet, trigger it: choose **Create deployment** or **Retry deployment** for branch `claude/lucid-clarke-ief7bj`, or push any change to that branch.
-6. When it finishes, Cloudflare shows the preview link. It usually looks like
-   `https://claude-lucid-clarke-ief7bj.littlepenguinstudio.pages.dev`
-   (each individual build also gets a unique `https://<id>.littlepenguinstudio.pages.dev` link).
+Open **dash.cloudflare.com → Workers & Pages → `littlepenguinstudio`** (the Worker created when you imported the repo).
 
-### Recommended: keep previews private
-Previews still show yellow placeholders. In the project, go to **Settings** → **General** → **Access policy** → **Enable** (for preview deployments). Then only people you allow, e.g. your own email, can open preview links. Cloudflare emails you a one-time code when you open one.
+**Settings → Build:**
 
-## 2. What to check on the preview link
+| Setting | Value |
+|---|---|
+| Git repository | `ThanawatBizInsights/LittlePenguinStudio` |
+| Production branch (Branch control) | `main` |
+| Builds for non-production branches | **Enabled** |
+| Build command | *(leave empty — `wrangler.toml` runs the build)* |
+| Deploy command | `npx wrangler deploy` |
+| Non-production branch deploy command | `npx wrangler versions upload` |
+| Root directory | `/` *(default)* |
+
+The Worker's name in the dashboard must be **`littlepenguinstudio`**, matching `name` in `wrangler.toml`.
+
+**Settings → Domains & Routes:** make sure **workers.dev** and **Preview URLs** are enabled. Preview links only exist when Preview URLs are on.
+
+**Recommended while placeholders are visible:** preview links are public by default. Where Cloudflare offers it next to *Preview URLs*, turn on **Cloudflare Access** so that only your email can open them.
+
+## 2. Build a preview
+
+Builds start when a branch is pushed. After changing the settings above, either:
+
+- open **Deployments / Builds**, find the latest build for branch `claude/lucid-clarke-ief7bj` and choose **Retry**, or
+- ask Claude to push the next change.
+
+When the build finishes, the build log (and the GitHub commit check) shows the **preview URL**. It usually looks like
+`https://claude-lucid-clarke-ief7bj-littlepenguinstudio.<your-subdomain>.workers.dev`
+(each build also has its own version URL).
+
+A failed build for `main` that says **“Not ready to publish”** is expected until every placeholder in `src/content/site.ts` is filled in.
+
+## 3. What to check on the preview link
 
 On **iPhone, iPad and a computer**:
 
-- [ ] Home page: hero, the games section, and the mini matching game (play it to the end, then tap *Play again*).
-- [ ] Menu: on a phone, tap **Menu**, open each link, and use the back button.
+- [ ] Home page: hero, the games section, and the mini matching game (play to the end, then tap *Play again*).
+- [ ] Menu: on a phone, tap **Menu** and open each link.
 - [ ] Animal Pairs pages: open each one directly by typing the address:
   - `/games/animal-pairs/`
   - `/games/animal-pairs/support/`
@@ -42,16 +56,14 @@ On **iPhone, iPad and a computer**:
 - [ ] Screenshots gallery: swipe through the iPhone and iPad rows on a phone.
 - [ ] A made-up address such as `/hello` shows the “This page waddled away” page.
 - [ ] Footer links all work.
-- [ ] Optional: in Chrome on a computer, open DevTools → **Lighthouse** and run Performance and Accessibility.
+- [ ] Optional: in Chrome DevTools → **Lighthouse**, run Performance and Accessibility.
 
-Every preview is hidden from search engines (`noindex` and `robots.txt: Disallow`).
+## 4. Going live (later)
 
-## 3. Going live (later)
-
-1. Fill in every placeholder in `src/content/site.ts`, so that `npm run check:release` passes locally.
-2. Merge the work into `main`. The production build now succeeds at `https://littlepenguinstudio.pages.dev`, still noindex.
-3. Add the custom domain: **Custom domains** → `littlepenguinstudio.com` (and `www`).
-4. Set the policy's effective date and `privacy.status: "published"`, add `SITE_LIVE` = `true` under **Settings → Variables and Secrets → Production**, and redeploy. The site is now indexable.
+1. Fill in every placeholder in `src/content/site.ts`, so that `npm run check:release` passes.
+2. Merge the work into `main`. The production build now deploys to `https://littlepenguinstudio.<your-subdomain>.workers.dev`, still noindex.
+3. **Settings → Domains & Routes → Add → Custom domain:** `littlepenguinstudio.com` (and `www`).
+4. Set the policy's effective date and `privacy.status: "published"`. Add the build variable `SITE_LIVE` = `true` (**Settings → Build → Variables**, production only), and redeploy. The site is now indexable.
 
 ## Testing locally in Cloudflare's runtime
 
@@ -59,4 +71,14 @@ Every preview is hidden from search engines (`noindex` and `robots.txt: Disallow
 npm run preview:cloudflare
 ```
 
-This builds the site and serves it at `http://localhost:8788` with Cloudflare's own Pages server, so `_headers`, trailing-slash redirects and the 404 page behave exactly as they will online.
+This builds the site and serves it at `http://localhost:8788` with Wrangler's local Workers runtime, so `_headers`, trailing-slash redirects and the 404 page behave as they will online.
+
+### Deploying from the command line instead of Git
+With `CLOUDFLARE_API_TOKEN` (Account → Workers Scripts → Edit) and `CLOUDFLARE_ACCOUNT_ID` set:
+
+```bash
+npm run deploy:preview      # uploads a preview version with the alias "preview"
+```
+```bash
+npm run deploy:production   # refuses unless npm run check:release passes
+```

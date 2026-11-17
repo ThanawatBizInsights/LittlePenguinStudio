@@ -62,26 +62,33 @@ To regenerate the favicon PNG and social image after design changes, run `npm ru
 2. Create `src/content/games/<slug>.tsx` with its support and privacy content (copy the Animal Pairs file as a template, then audit the new app), and register it in `src/content/games/index.ts`.
 3. Rebuild. The home games grid, support hub, parents page, privacy overview, footer, sitemap and `/games/<slug>/`, `/games/<slug>/support/` and `/games/<slug>/privacy/` are all generated.
 
-## Deploy to Cloudflare Pages
+## Deploy to Cloudflare (Workers static assets)
 
-The Pages project is called `littlepenguinstudio` (production branch `main`). Config is in `wrangler.toml`, Node 22 is pinned in `.node-version`, and `public/_headers` sets the security headers.
+The site is a Cloudflare **Worker with static assets** named `littlepenguinstudio`, built from GitHub by Workers Builds (production branch `main`). Everything is in `wrangler.toml`:
+- `[assets]` serves `out/`, with a real 404 page and automatic trailing-slash redirects.
+- `[build]` runs `npm run build:cloudflare` on every `wrangler deploy` and `wrangler versions upload`.
 
-**From this machine (Wrangler):** set `CLOUDFLARE_API_TOKEN` (permission: *Account → Cloudflare Pages → Edit*) and `CLOUDFLARE_ACCOUNT_ID`, then run:
+Node 22 is pinned in `.node-version`, and `public/_headers` sets the security headers.
+
+**Git setup and test checklist:** [`docs/cloudflare-testing.md`](docs/cloudflare-testing.md).
+- Leave the dashboard build command empty.
+- Deploy command: `npx wrangler deploy`.
+- Non-production branch deploy command: `npx wrangler versions upload`.
+- Every non-`main` branch gets a preview URL.
+- Builds of `main` run the release check and **fail on purpose while any placeholder remains**.
+
+**From this machine:** set `CLOUDFLARE_API_TOKEN` (*Account → Workers Scripts → Edit*) and `CLOUDFLARE_ACCOUNT_ID`, then run:
 
 ```bash
-npm run deploy:preview      # → https://preview.littlepenguinstudio.pages.dev (not production)
+npm run deploy:preview      # preview version with alias "preview" (not production)
 ```
 ```bash
 npm run deploy:production   # refuses unless npm run check:release passes
 ```
 
-Wrangler 4.15x tries to move Pages projects onto Workers. If `wrangler pages project create` fails, add `--force` to stay on classic Pages.
+**Indexing:** every build is `noindex` with `Disallow: /` in robots.txt unless the build variable `SITE_LIVE=true` is set. Set it only for production, on launch day.
 
-**Or connect Git (recommended, auto-deploys):** step-by-step in [`docs/cloudflare-testing.md`](docs/cloudflare-testing.md). Use build command **`npm run build:cloudflare`** and output directory `out`. Every non-`main` branch gets a preview URL. Builds of `main` (production) run the release check and **fail on purpose while any placeholder remains**.
-
-**Indexing:** every build is `noindex` with `Disallow: /` in robots.txt unless the environment variable `SITE_LIVE=true` is set. Set it only in Cloudflare's **Production** environment on launch day.
-
-**Test locally in Cloudflare's runtime** (applies `_headers`, redirects and the 404 page exactly like Pages):
+**Test locally in Cloudflare's runtime** (applies `_headers`, redirects and the 404 page as Cloudflare will):
 
 ```bash
 npm run preview:cloudflare   # http://localhost:8788
