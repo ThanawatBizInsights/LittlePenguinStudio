@@ -1,5 +1,7 @@
 # Little Penguin Studio — website, email & App Store readiness plan
 
+> Note: the site has since been rebuilt with Next.js (see README.md). Phase B's file list is historical; URLs and deploy settings below are current.
+
 ## Context
 You want www.LittlePenguinStudio.com as the studio home for Animal Pairs and future apps. App Store Connect needs a public **Support URL**, **Privacy Policy URL** (mandatory for a kids app), optional **Marketing URL**, and working contact emails. The launch pack (`Animal_Pairs_App_Store_Launch_Pack.md`) already drafts the support page, privacy policy and review notes; they need a home on the web and real email addresses.
 
@@ -54,16 +56,16 @@ Rules for the site: no third-party trackers, cookies or ad scripts (keeps the ki
 Work on branch `claude/lucid-clarke-ief7bj`, commit and push. Later merge to `main` (via PR when you ask) — `main` becomes the Cloudflare production branch.
 
 ### Phase C — Deploy (you connect, ~15 min)
-1. Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git → `ThanawatBizInsights/LittlePenguinStudio`. Framework: None. Build command: empty. Output dir: `/`. Production branch: `main`.
+1. Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git → `ThanawatBizInsights/LittlePenguinStudio`. Framework preset: Next.js (Static HTML Export). Build command: `npm run build`. Build output directory: `out`. Environment variable `NODE_VERSION=22`. Production branch: `main`.
 2. Custom domains: add `littlepenguinstudio.com` and `www.littlepenguinstudio.com`; add a redirect rule www → apex (or the reverse — pick one canonical).
 3. Every push to `main` redeploys; other branches get preview URLs for checking before going live.
 
 ### Phase D — Fill the App Store fields
 | App Store Connect field | Value |
 |---|---|
-| Support URL | `https://littlepenguinstudio.com/apps/animal-pairs/support/` |
-| Privacy Policy URL | `https://littlepenguinstudio.com/apps/animal-pairs/privacy/` |
-| Marketing URL | `https://littlepenguinstudio.com/apps/animal-pairs/` |
+| Support URL | `https://littlepenguinstudio.com/support/` |
+| Privacy Policy URL | `https://littlepenguinstudio.com/privacy/animal-pairs/` |
+| Marketing URL | `https://littlepenguinstudio.com/games/animal-pairs/` |
 | Review contact email | `appreview@littlepenguinstudio.com` |
 | Copyright | `2026 [Your legal name]` (Individual) |
 Also link the privacy policy from the app's Parents area (behind the parental gate), as the launch pack requires.
