@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Animal Pairs placeholder icon">
+  <rect width="128" height="128" rx="28" fill="#FCE7C8"/>
+  <rect x="18" y="26" width="42" height="58" rx="9" fill="#FFFFFF" stroke="#F4A340" stroke-width="4" transform="rotate(-8 39 55)"/>
+  <rect x="68" y="44" width="42" height="58" rx="9" fill="#FFFFFF" stroke="#2E7FA8" stroke-width="4" transform="rotate(8 89 73)"/>
+  <circle cx="39" cy="55" r="11" fill="#C98B5A"/><circle cx="31" cy="46" r="5" fill="#A86E43"/><circle cx="47" cy="46" r="5" fill="#A86E43"/>
+  <circle cx="89" cy="73" r="11" fill="#C98B5A"/><circle cx="81" cy="64" r="5" fill="#A86E43"/><circle cx="97" cy="64" r="5" fill="#A86E43"/>
+</svg>
