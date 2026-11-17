@@ -1,18 +1,22 @@
 import type { Metadata } from "next";
-import { PageIntro } from "@/components/Content";
+import Link from "next/link";
+import { gamePaths, games, PH, studio } from "@/content/site";
+import { EmailLink, PageIntro, Panel } from "@/components/Content";
 import { Container } from "@/components/Curve";
-import { SupportCenter } from "@/components/SupportCenter";
+import { Arrow } from "@/components/Button";
 import { Art } from "@/components/Art";
 import { Penguin } from "@/components/illustrations/Penguin";
 import { Bubble, SpeechBubble } from "@/components/illustrations/Decor";
 
+/* eslint-disable @next/next/no-img-element */
+
 export const metadata: Metadata = {
   title: "Support",
-  description: "Help with Little Penguin Studio games: common questions and how to contact us.",
+  description: "Help with Little Penguin Studio games. Choose a game for its support page, or contact us.",
   alternates: { canonical: "/support/" },
 };
 
-export default function SupportPage() {
+export default function SupportHub() {
   return (
     <>
       <PageIntro
@@ -28,10 +32,39 @@ export default function SupportPage() {
           </div>
         }
       >
-        <p>Choose a game to see common questions and how to get in touch.</p>
+        <p>Choose a game to find answers to common questions, sound settings and purchase help.</p>
       </PageIntro>
-      <Container className="pb-6">
-        <SupportCenter />
+
+      <Container className="space-y-10 pb-6">
+        <section aria-labelledby="choose">
+          <h2 id="choose" className="text-3xl">Which game do you need help with?</h2>
+          <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+            {games.map((g) => (
+              <li key={g.slug}>
+                <Link
+                  href={gamePaths(g.slug).support}
+                  className="group flex min-h-24 items-center gap-4 rounded-[1.75rem] bg-paper p-5 ring-1 ring-ink/10 hover:ring-ink"
+                >
+                  <img src={g.icon} alt="" width={64} height={64} className="h-16 w-16 rounded-[22%]" />
+                  <span className="flex-1">
+                    <span className="block font-display text-2xl font-semibold">{g.title} support</span>
+                    <span className="text-ink-soft">Sound, purchases, progress and contact</span>
+                  </span>
+                  <Arrow className="h-6 w-6 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 text-sm text-ink-soft">More games will appear here as they’re released.</p>
+        </section>
+
+        <Panel tone="mint">
+          <h2 className="text-3xl">Contact us</h2>
+          <p className="mt-3 text-lg">
+            Email <EmailLink email={studio.supportEmail} ph={PH.supportEmail} />. Please tell us which game you’re asking about, and
+            don’t include personal information about your child.
+          </p>
+        </Panel>
       </Container>
     </>
   );

@@ -1,24 +1,25 @@
 # Before launch
 
-## Real-world details (edit `src/content/site.ts`)
-- [ ] `studio.publisherName`: your legal name (Individual Apple enrollment)
-- [ ] `studio.supportEmail` / `studio.privacyEmail`: once the domain mailbox works
-- [ ] Animal Pairs `details`: age rating, internet requirements, advertising, in-app purchases, availability
-- [ ] Confirm or adjust `supportedDevices` ("iPhone and iPad") and `supportedLanguages` ("English") against the release build
-- [ ] `claims`: set to `true` only what the release build proves
-- [ ] After App Store approval: `appStoreUrl`, `status: "available"`, optional official badge
+Run `npm run check:release`. It must pass before anything is deployed.
 
-## Artwork
-- [ ] Export the plush artwork sheets as individual transparent files at the paths in `src/content/art.ts`
-- [ ] Add real iPhone and iPad screenshots to `public/screenshots/animal-pairs/` and list them in `site.ts`
-- [ ] Regenerate `public/og-image.png` and `public/apple-touch-icon.png` (`node scripts/make-images.cjs`)
+## Facts to supply (`src/content/site.ts`)
+- [ ] `studio.publisherName`: [LEGAL PUBLISHER NAME]. Must match the App Store seller (Individual enrollment: your legal name)
+- [ ] `studio.supportEmail`: [SUPPORT EMAIL]
+- [ ] `studio.privacyEmail`: [PRIVACY CONTACT EMAIL] (can be the same mailbox)
+- [ ] `studio.supportEmailRetention`: [EMAIL RETENTION PERIOD], e.g. "12 months"
+- [ ] Animal Pairs `privacy.effectiveDate`: [EFFECTIVE DATE], then `privacy.status: "published"`
+- [ ] Animal Pairs `details.ageRating`: [AGE RATING], from App Store Connect's age-rating questionnaire (and Kids age band if used)
+- [ ] Animal Pairs `details.availability`: e.g. countries/regions, once chosen
+- [ ] After approval: `appStoreUrl` ([APP STORE URL]) and `status: "available"`. The App Store button then appears.
 
-## Privacy
-- [ ] Audit the release build and every SDK, then write the final Animal Pairs policy (`src/app/privacy/[slug]/page.tsx`)
-- [ ] Set `privacy.status: "published"` and `lastUpdated`, which removes the Draft banner and lets search engines index the page
-- [ ] App Store Connect App Privacy answers must match the published policy
+## iOS app (see docs/animal-pairs-privacy-audit.md)
+- [ ] Set `AP_SUPPORT_URL` and `AP_PRIVACY_POLICY_URL` to the website URLs
+- [ ] Add the System Boot Time required-reason API (35F9.1) to `PrivacyInfo.xcprivacy`
+- [ ] Fix the "this iPad" strings, or make the app iPad-only and update the website
+- [ ] Replace `com.example` bundle and product IDs
+- [ ] Confirm the release build is built from the audited code; App Privacy answer: Data Not Collected, no tracking
 
-## Domain and hosting (`docs/setup-guide.md`)
-- [ ] Buy littlepenguinstudio.com, set up the mailbox and DNS (SPF/DKIM/DMARC)
-- [ ] Connect Cloudflare Pages (build `npm run build`, output `out`), add the apex and www domains
-- [ ] Choose the canonical host (apex) and redirect www to it
+## Website
+- [ ] Optional: iPhone screenshots (current ones are iPad)
+- [ ] Optional: plush artwork files for `src/content/art.ts`
+- [ ] Domain, mailbox and Cloudflare Pages (`docs/setup-guide.md`)

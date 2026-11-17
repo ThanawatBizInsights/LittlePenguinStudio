@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { games, studio } from "@/content/site";
+import { gamePaths, games, studio } from "@/content/site";
 import { PageIntro, Panel } from "@/components/Content";
 import { Container } from "@/components/Curve";
 import { Arrow } from "@/components/Button";
@@ -37,12 +37,12 @@ export default function PrivacyOverview() {
             {games.map((g) => (
               <li key={g.slug}>
                 <Link
-                  href={`/privacy/${g.slug}/`}
+                  href={gamePaths(g.slug).privacy}
                   className="group flex min-h-20 items-center justify-between gap-4 rounded-[1.75rem] bg-paper p-6 ring-1 ring-ink/10 hover:ring-ink"
                 >
                   <span>
                     <span className="block font-display text-2xl font-semibold">{g.title}</span>
-                    <span className="text-ink-soft">{g.privacy.status === "draft" ? "Draft — awaiting confirmation" : "Privacy policy"}</span>
+                    <span className="text-ink-soft">Privacy policy</span>
                   </span>
                   <Arrow className="h-6 w-6 transition-transform group-hover:translate-x-1" />
                 </Link>

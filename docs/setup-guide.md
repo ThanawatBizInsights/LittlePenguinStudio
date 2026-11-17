@@ -63,8 +63,8 @@ Work on branch `claude/lucid-clarke-ief7bj`, commit and push. Later merge to `ma
 ### Phase D — Fill the App Store fields
 | App Store Connect field | Value |
 |---|---|
-| Support URL | `https://littlepenguinstudio.com/support/` |
-| Privacy Policy URL | `https://littlepenguinstudio.com/privacy/animal-pairs/` |
+| Support URL | `https://littlepenguinstudio.com/games/animal-pairs/support/` |
+| Privacy Policy URL | `https://littlepenguinstudio.com/games/animal-pairs/privacy/` |
 | Marketing URL | `https://littlepenguinstudio.com/games/animal-pairs/` |
 | Review contact email | `appreview@littlepenguinstudio.com` |
 | Copyright | `2026 [Your legal name]` (Individual) |

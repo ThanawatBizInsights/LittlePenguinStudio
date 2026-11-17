@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { studio } from "@/content/site";
+import { gamePaths, games, studio } from "@/content/site";
 import { Logo } from "./Logo";
 import { Container } from "./Curve";
 import { Sparkle, Wave } from "./illustrations/Decor";
@@ -16,13 +16,13 @@ export function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="on-dark mt-16 bg-ink text-paper">
-      <Container className="grid gap-10 py-12 md:grid-cols-[1.2fr_1fr_1fr] md:items-start">
+      <Container className="grid gap-10 py-12 md:grid-cols-[1fr_1.4fr_1fr] md:items-start">
         <div className="space-y-4">
           <Logo variant="inline" tone="light" />
           <p className="max-w-xs text-paper/85">{studio.description}</p>
         </div>
-        <nav aria-label="Footer">
-          <ul className="grid grid-cols-2 gap-x-4 gap-y-1 md:grid-cols-1">
+        <nav aria-label="Footer" className="grid grid-cols-2 gap-6">
+          <ul className="flex flex-col">
             {links.map((l) => (
               <li key={l.href}>
                 <Link href={l.href} className="inline-flex min-h-11 items-center font-display text-lg font-semibold hover:text-butter">
@@ -31,6 +31,27 @@ export function Footer() {
               </li>
             ))}
           </ul>
+          {games.map((g) => {
+            const p = gamePaths(g.slug);
+            return (
+              <div key={g.slug}>
+                <p className="flex min-h-11 items-center font-display text-lg font-bold text-butter">{g.title}</p>
+                <ul className="flex flex-col">
+                  {[
+                    { href: p.overview, label: "Overview" },
+                    { href: p.support, label: "Support" },
+                    { href: p.privacy, label: "Privacy policy" },
+                  ].map((l) => (
+                    <li key={l.href}>
+                      <Link href={l.href} className="inline-flex min-h-11 items-center font-semibold hover:text-butter">
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </nav>
         <div className="space-y-3">
           <p className="relative font-display text-2xl font-bold leading-tight">

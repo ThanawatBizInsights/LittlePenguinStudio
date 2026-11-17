@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { games, studio } from "@/content/site";
+import { gamePaths, games, studio } from "@/content/site";
 import { PageIntro, Panel } from "@/components/Content";
 import { Container } from "@/components/Curve";
 import { Button, TextLink } from "@/components/Button";
@@ -54,7 +54,8 @@ export default function ParentsPage() {
                 <div>
                   <h3 id={`info-${g.slug}`} className="text-3xl">{g.title}</h3>
                   <p className="mt-2 text-ink-soft">{g.summary}</p>
-                  <TextLink href={`/games/${g.slug}/`} className="mt-3">About {g.title}</TextLink>
+                  <TextLink href={gamePaths(g.slug).overview} className="mt-3">About {g.title}</TextLink>
+                  <TextLink href={gamePaths(g.slug).support}>{g.title} support</TextLink>
                 </div>
                 <AppInfoTable details={g.details} caption={`${g.title} app information`} />
               </article>
@@ -74,10 +75,9 @@ export default function ParentsPage() {
               <ul className="space-y-1">
                 {games.map((g) => (
                   <li key={g.slug}>
-                    <Link className="font-semibold underline underline-offset-4" href={`/privacy/${g.slug}/`}>
+                    <Link className="font-semibold underline underline-offset-4" href={gamePaths(g.slug).privacy}>
                       {g.title} privacy policy
                     </Link>
-                    {g.privacy.status === "draft" ? <span className="ml-2 text-sm text-ink-soft">(draft)</span> : null}
                   </li>
                 ))}
                 <li>

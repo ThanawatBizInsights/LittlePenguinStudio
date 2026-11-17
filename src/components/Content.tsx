@@ -56,3 +56,44 @@ export function DraftBanner({ children }: { children: ReactNode }) {
     </div>
   );
 }
+
+/** A visibly highlighted, machine-detectable placeholder for an unconfirmed fact. */
+export function Ph({ children }: { children: ReactNode }) {
+  return (
+    <mark data-placeholder="" className="rounded-md bg-butter px-1.5 py-0.5 font-bold text-ink ring-2 ring-orange">
+      {children}
+    </mark>
+  );
+}
+
+/** Shows a value, or its placeholder when empty. */
+export function Val({ value, ph }: { value: string | null | undefined; ph: string }) {
+  return value ? <>{value}</> : <Ph>{ph}</Ph>;
+}
+
+/** Email link, or its placeholder when not configured. */
+export function EmailLink({ email, ph, subject }: { email: string; ph: string; subject?: string }) {
+  if (!email) return <Ph>{ph}</Ph>;
+  const href = subject ? `mailto:${email}?subject=${encodeURIComponent(subject)}` : `mailto:${email}`;
+  return (
+    <a className="font-semibold text-cobalt-deep underline underline-offset-4" href={href}>
+      {email}
+    </a>
+  );
+}
+
+/** Review banner listing unresolved facts. Renders nothing once everything is filled in. */
+export function NotReadyBanner({ items, extra }: { items: { label: string }[]; extra?: ReactNode }) {
+  if (!items.length && !extra) return null;
+  return (
+    <DraftBanner>
+      <p>Draft for review — not ready to publish.</p>
+      {items.length > 0 && (
+        <p className="mt-1 font-normal">
+          Still needed: {items.map((i) => i.label).join(", ")}.
+        </p>
+      )}
+      {extra && <div className="mt-1 font-normal">{extra}</div>}
+    </DraftBanner>
+  );
+}

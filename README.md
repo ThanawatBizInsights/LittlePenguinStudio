@@ -19,18 +19,24 @@ npm run preview      # serve ./out at http://localhost:3000 (what will be deploy
 ```bash
 npm run check        # typecheck + lint + build
 ```
+```bash
+npm run check:release   # build, then FAIL if any [PLACEHOLDER] or draft banner remains
+```
+
+**Do not deploy until `npm run check:release` passes.**
 
 ## Pages
 
 | Route | Purpose |
 |---|---|
 | `/` | Home: hero, featured game, mini matching game, story, parent info |
-| `/games/animal-pairs/` | Game page (App Store **Marketing URL**) |
+| `/games/animal-pairs/` | Animal Pairs overview (App Store **Marketing URL**) |
+| `/games/animal-pairs/support/` | Animal Pairs support (App Store **Support URL**) |
+| `/games/animal-pairs/privacy/` | Animal Pairs privacy policy (App Store **Privacy Policy URL**) |
 | `/about/` | Our Story |
 | `/parents/` | For Parents: app details, privacy and support |
-| `/support/` | Support (App Store **Support URL**) |
-| `/privacy/` | Privacy overview (website practices + app policies) |
-| `/privacy/animal-pairs/` | Animal Pairs privacy policy (App Store **Privacy Policy URL**), still a draft |
+| `/support/` | Support hub (links to each game's support page) |
+| `/privacy/` | Website privacy notice + links to each app's policy |
 
 ## Update studio and app details: `src/content/site.ts`
 
@@ -38,23 +44,23 @@ This is the single source of truth: studio name, publisher name, support/privacy
 
 - Empty values stay hidden. With no `supportEmail`, no mailto button is rendered. With no `appStoreUrl`, the game shows a status pill instead of a download link.
 - App details set to `null` display **"Details to be confirmed"**.
-- `claims` (ad-free, no purchases, offline, no data collected) stay `false` until verified in the release build.
 - When the App Store link exists, set `status: "available"` and `appStoreUrl`. Optionally add Apple's official "Download on the App Store" badge from Apple's marketing resources.
-- When the privacy policy is final, fill in its text in `src/app/privacy/[slug]/page.tsx`, then set `privacy.status: "published"` and `privacy.lastUpdated`.
+- Support and privacy text for each game lives in `src/content/games/<slug>.tsx` (registered in `src/content/games/index.ts`). The Animal Pairs policy is based on a source audit (`docs/animal-pairs-privacy-audit.md`). Update both together whenever the app's data handling changes.
+- When everything is confirmed, set `privacy.effectiveDate` and `privacy.status: "published"`. This removes the draft banner and allows search indexing.
 
 ## Replace artwork: `src/content/art.ts`
 
 Drop transparent PNG/WebP files at the paths listed in `src/content/art.ts`, under `public/art/…`. Examples: `public/art/penguin-wave.webp` or `public/art/tiles/fox.webp`. Then rebuild. Each file automatically replaces its built-in SVG fallback, and the animal tiles are also used by the mini-game. Keep the original proportions; about 1200 px on the long side is plenty.
 
-App screenshots go in `public/screenshots/<game>/` and are listed in the game's `screenshots` array. Only use real app captures.
+App screenshots, the app icon, the wordmark and character pictures live in `public/games/<slug>/`. They are listed in the game's entry in `site.ts`. Only use real captures from the working app as screenshots; concept mockups are design references only.
 
 To regenerate the favicon PNG and social image after design changes, run `npm run build`, then `npm run preview`, then `node scripts/make-images.cjs`.
 
 ## Add another game
 
-1. Append a new object to `games` in `src/content/site.ts`, with a new `slug`.
-2. Rebuild. The home "growing world" grid, support app selector, parents page, privacy overview, sitemap, and `/games/<slug>/` and `/privacy/<slug>/` pages are all generated from that list.
-3. Optional: add key art for the game card in `src/components/GameParts.tsx` (`GameCard`).
+1. Append a new object to `games` in `src/content/site.ts`, with a new `slug`, and add its images under `public/games/<slug>/`.
+2. Create `src/content/games/<slug>.tsx` with its support and privacy content (copy the Animal Pairs file as a template, then audit the new app), and register it in `src/content/games/index.ts`.
+3. Rebuild. The home games grid, support hub, parents page, privacy overview, footer, sitemap and `/games/<slug>/`, `/games/<slug>/support/` and `/games/<slug>/privacy/` are all generated.
 
 ## Deploy (when ready; not done yet)
 

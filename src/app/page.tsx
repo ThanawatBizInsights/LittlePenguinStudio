@@ -7,9 +7,9 @@ import { animalArt, animalKinds, type AnimalKind } from "@/components/illustrati
 import { Art, Tile, hasArt } from "@/components/Art";
 import { artSlots } from "@/content/art";
 import {
-  Blocks, Bubble, Bulb, Cloud, Family, Flower, Heart, Puzzle, Shield, Smiley, Sparkle, SpeechBubble, Star, Wave, Iceberg,
+  Blocks, Bubble, Bulb, Cloud, Family, Heart, Puzzle, Shield, Smiley, Sparkle, SpeechBubble, Star, Wave, Iceberg,
 } from "@/components/illustrations/Decor";
-import { AnimalPairsArt, GameCard, StoreCta } from "@/components/GameParts";
+import { GameKeyArt, GameCard, StoreCta } from "@/components/GameParts";
 import { MiniMatchGame } from "@/components/MiniMatchGame";
 
 const featured = games[0];
@@ -139,8 +139,7 @@ export default function Home() {
             className="mt-5 grid overflow-hidden rounded-[2.5rem] bg-paper shadow-[0_10px_0_0_rgba(28,35,80,0.08)] ring-1 ring-ink/10 md:grid-cols-2"
           >
             <div className="relative min-h-72 bg-butter md:min-h-[26rem]">
-              <AnimalPairsArt className="absolute inset-[6%]" />
-              <Flower className="absolute bottom-5 right-6 w-12" color="#ffffff" />
+              <GameKeyArt game={featured} className="absolute inset-0" />
             </div>
             <div className="flex flex-col justify-center gap-4 p-7 sm:p-10">
               <p className="font-extrabold uppercase tracking-[0.14em] text-coral-deep">Our first little adventure</p>
