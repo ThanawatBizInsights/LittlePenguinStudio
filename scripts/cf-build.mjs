@@ -57,4 +57,25 @@ if (production && process.env.SITE_LIVE !== "true") {
 }
 
 const result = spawnSync("npm", ["run", script], { stdio: "inherit", shell: process.platform === "win32" });
-process.exit(result.status ?? 1);
+const status = result.status ?? 1;
+
+if (production && status !== 0) {
+  // Explain the refusal; the build still fails (nothing is bypassed).
+  console.log(`
+PRODUCTION DEPLOY REFUSED ON PURPOSE — the release check found unfinished
+public details (listed above). This safeguard stops a draft privacy policy or
+support page from going live. The website code itself built successfully.
+
+To publish production, fill in src/content/site.ts:
+  • studio.publisherName      — exact seller name from App Store Connect
+  • privacy.effectiveDate     — the date the final policy is published
+  • details.ageRating         — from the App Store Connect age-rating questionnaire
+  • details.availability      — countries/regions selected in App Store Connect
+  • privacy.status = "published" — once the policy is verified against the release build
+
+Branch previews still build: they run "wrangler versions upload", not
+"wrangler deploy". In Cloudflare, set Settings → Build → Branch control →
+Production branch to "main" so work branches build as previews.
+`);
+}
+process.exit(status);
