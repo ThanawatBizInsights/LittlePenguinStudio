@@ -91,10 +91,10 @@ export type Studio = {
 };
 
 /**
- * Working support mailbox. Leave "" until it is set up and tested.
+ * Working support mailbox (supplied by the owner, 18 Nov 2026).
  * The privacy contact uses the same address.
  */
-const SUPPORT_EMAIL = "";
+const SUPPORT_EMAIL = "littlepenguinsupport@icloud.com";
 
 export const studio: Studio = {
   name: "Little Penguin Studio",
