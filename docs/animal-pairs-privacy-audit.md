@@ -11,12 +11,12 @@
 | Third-party SDKs / packages | None. Only a local Swift package (`AnimalPairsKit`, Foundation only) | `project.pbxproj` has only `XCLocalSwiftPackageReference "Packages/AnimalPairsKit"`; no Package.resolved, Podfile or Cartfile |
 | Analytics, crash reporting, ads, tracking | None | No Firebase, Crashlytics, Sentry, AdMob or other SDK; no `ASIdentifierManager` or `ATTrackingManager`; `NSPrivacyTracking = false` |
 | Network calls by the app | None of its own. No `URLSession`, sockets or web views | The only URL use is `openURL` for the privacy and support links in `ParentsView.swift` |
-| StoreKit | StoreKit 2: one non-consumable "Full Game Unlock"; purchase, `offerCodeRedemption` (gift codes, Apple's sheet) and `AppStore.sync()` restore; `Transaction.updates` observed | `Purchases/PurchaseManager.swift` |
+| StoreKit | StoreKit 2: one auto-renewable monthly subscription "Animal Pairs Plus" (changed from the earlier non-consumable, re-checked 18 Nov 2026, commit `56fe9f9`); purchase, `offerCodeRedemption` (Apple's sheet), `AppStore.sync()` restore, `manageSubscriptionsSheet`, subscription status; `Transaction.updates` observed | `Purchases/PurchaseManager.swift` |
 | Backend server | Exists in `backend/` but is **not called by the app** ("the app does not call it today") | `backend/README.md`; no backend URL in app code or Info.plist |
 | Permissions | None requested: no `NS…UsageDescription` keys | Info.plist and build settings |
 | Accounts / sign-in / chat | None | — |
 | iCloud / CloudKit sync | None: no entitlements file, no CloudKit or ubiquity APIs | — |
-| Local storage: UserDefaults | Sound, music and voice switches; last mode and board size; cached ID of the last verified StoreKit transaction for the unlock; a debug-only flag compiled out of Release | `SettingsStore.swift`, `PurchaseManager.swift` |
+| Local storage: UserDefaults | Sound, music and voice switches; last mode and board size; cached ID of the last verified StoreKit transaction for the subscription and the end date of its paid period; a debug-only flag compiled out of Release | `SettingsStore.swift`, `PurchaseManager.swift` |
 | Local storage: SwiftData | Completed rounds: round UUID, mode, board size, attempts, hints used, pair count, start and end time (newest 100 listed, totals kept) | `Persistence/HistoryStore.swift` (Application Support/History) |
 | Local storage: JSON file | Snapshot of the unfinished round (tile layout, attempts, hints, timestamps) | `RoundSnapshotStore.swift` (Application Support/Rounds) |
 | Deletion | Parents → Reset progress clears history and snapshot (not purchases); deleting the app removes everything | `AppModel.resetProgress()` |

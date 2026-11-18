@@ -4,7 +4,7 @@ import { gamePaths, getGame, mailto, studio, PH, unresolvedFacts } from "@/conte
 import { gameContent } from "@/content/games";
 import { Container, Eyebrow } from "@/components/Curve";
 import { Button } from "@/components/Button";
-import { NotReadyBanner, Ph, Val } from "@/components/Content";
+import { EmailLink, NotReadyBanner, Val } from "@/components/Content";
 import { GameSubNav } from "@/components/GameSubNav";
 import { SectionedArticle } from "@/components/Sections";
 import { AppIcon } from "@/components/GameParts";
@@ -17,7 +17,7 @@ export function gameSupportMetadata(slug: string): Metadata {
   const ready = unresolvedFacts(game).length === 0;
   return {
     title: `${game.title} Support`,
-    description: `Help for ${game.title}: music and sound settings, restoring Full Game Unlock, resetting progress and how to contact ${studio.name}.`,
+    description: `Help for ${game.title}: music and sound settings, Animal Pairs Plus and restoring purchases, resetting progress and how to contact ${studio.name}.`,
     alternates: { canonical: gamePaths(game.slug).support },
     robots: ready ? undefined : { index: false },
   };
@@ -59,7 +59,9 @@ export function GameSupportPage({ slug }: { slug: string }) {
               <Val value={studio.publisherName} ph={PH.publisher} /> · {studio.name}
             </dd>
             <dt className="font-semibold">Email</dt>
-            <dd>{studio.supportEmail ? studio.supportEmail : <Ph>{PH.supportEmail}</Ph>}</dd>
+            <dd>
+              <EmailLink email={studio.supportEmail} ph={PH.supportEmail} subject={`${game.title} support`} />
+            </dd>
           </dl>
           {href ? (
             <Button href={href} arrow>

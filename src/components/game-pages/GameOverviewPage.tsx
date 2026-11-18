@@ -110,8 +110,8 @@ export function GameOverviewPage({ slug }: { slug: string }) {
                 <li key={m.name}>
                   <p className="font-display text-xl font-semibold">
                     {m.name}
-                    {m.fullGame && game.fullGameUnlock ? (
-                      <span className="ml-2 rounded-full bg-lilac px-2.5 py-0.5 align-middle font-sans text-xs font-extrabold uppercase">Full Game</span>
+                    {m.plus && game.subscription ? (
+                      <span className="ml-2 rounded-full bg-lilac px-2.5 py-0.5 align-middle font-sans text-xs font-extrabold uppercase">Plus</span>
                     ) : null}
                   </p>
                   <p className="text-ink-soft">{m.text}</p>
@@ -125,7 +125,7 @@ export function GameOverviewPage({ slug }: { slug: string }) {
               {game.boards.map((b) => (
                 <li key={b.cards} className="rounded-2xl bg-cream p-4">
                   <p className="font-display text-2xl font-semibold">{b.cards} cards</p>
-                  <p className="text-ink-soft">{b.layout}{b.fullGame && game.fullGameUnlock ? " · Full Game" : ""}</p>
+                  <p className="text-ink-soft">{b.layout}{b.plus && game.subscription ? " · Plus" : ""}</p>
                 </li>
               ))}
             </ul>
@@ -133,22 +133,26 @@ export function GameOverviewPage({ slug }: { slug: string }) {
         </Container>
       </section>
 
-      {game.fullGameUnlock && (
+      {game.subscription && (
         <section aria-labelledby="unlock" className="pb-14">
           <Container>
             <div className="rounded-[2rem] bg-butter-soft p-6 ring-1 ring-ink/10 sm:p-8">
-              <h2 id="unlock" className="text-3xl">Free to play, with an optional {game.fullGameUnlock.name}</h2>
+              <h2 id="unlock" className="text-3xl">Free to play, with an optional {game.subscription.name}</h2>
               <div className="mt-5 grid gap-5 md:grid-cols-2">
                 <div>
                   <h3 className="text-xl">Free for everyone</h3>
-                  <ul className="mt-2 list-disc space-y-1 pl-6">{game.fullGameUnlock.free.map((f) => <li key={f}>{f}</li>)}</ul>
+                  <ul className="mt-2 list-disc space-y-1 pl-6">{game.subscription.free.map((f) => <li key={f}>{f}</li>)}</ul>
                 </div>
                 <div>
-                  <h3 className="text-xl">Added by the one-time {game.fullGameUnlock.name}</h3>
-                  <ul className="mt-2 list-disc space-y-1 pl-6">{game.fullGameUnlock.adds.map((f) => <li key={f}>{f}</li>)}</ul>
+                  <h3 className="text-xl">Added by {game.subscription.name}</h3>
+                  <ul className="mt-2 list-disc space-y-1 pl-6">{game.subscription.adds.map((f) => <li key={f}>{f}</li>)}</ul>
                 </div>
               </div>
-              <p className="mt-5 text-ink-soft">Purchases are made by a grown-up in the app’s Parents area, behind a grown-ups check.</p>
+              <p className="mt-5 text-ink-soft">
+                {game.subscription.name} is an optional subscription that renews every {game.subscription.period} until cancelled. The price is
+                shown in the app before you confirm. A grown-up subscribes, restores or cancels in the app’s Parents area, behind a grown-ups
+                check. No ads, ever.
+              </p>
             </div>
           </Container>
         </section>
@@ -161,7 +165,7 @@ export function GameOverviewPage({ slug }: { slug: string }) {
         </section>
         <section aria-labelledby="help" className="flex flex-col gap-4 self-start rounded-[2rem] bg-mint-soft p-6 ring-1 ring-ink/10 sm:p-8">
           <h2 id="help" className="text-3xl">Help &amp; privacy</h2>
-          <p className="text-ink-soft">Sound settings, restoring a purchase, and how to contact us.</p>
+          <p className="text-ink-soft">Sound settings, the subscription, restoring purchases, and how to contact us.</p>
           <Button href={paths.support} arrow className="self-start">
             {game.title} support
           </Button>

@@ -2,7 +2,8 @@
  * Animal Pairs — support and privacy page content.
  *
  * Every statement about app behaviour here was checked against the Animal
- * Pairs iOS source (ThanawatBizInsights/AnimalPairs, commit 2b39570). See
+ * Pairs iOS source (ThanawatBizInsights/AnimalPairs; purchases re-checked
+ * after the switch to the Animal Pairs Plus subscription, 18 November 2026). See
  * docs/animal-pairs-privacy-audit.md. If the app changes — a new SDK, network
  * call, permission, account, or iCloud sync — this page and the App Store
  * Connect App Privacy answers must be updated together.
@@ -22,7 +23,7 @@ const ext = "font-semibold text-cobalt-deep underline underline-offset-4";
 
 export function supportSections(game: Game): Section[] {
   const paths = gamePaths(game.slug);
-  const unlock = game.fullGameUnlock;
+  const unlock = game.subscription;
   const sections: Section[] = [
     {
       id: "parents-area",
@@ -79,7 +80,7 @@ export function supportSections(game: Game): Section[] {
             {game.modes.map((m) => (
               <li key={m.name}>
                 <strong>{m.name}</strong> — {m.text}
-                {m.fullGame && unlock ? ` (${unlock.name})` : ""}
+                {m.plus && unlock ? ` (${unlock.name})` : ""}
               </li>
             ))}
           </ul>
@@ -93,13 +94,13 @@ export function supportSections(game: Game): Section[] {
 
   if (unlock) {
     sections.push({
-      id: "full-game",
+      id: "plus",
       title: unlock.name,
       body: (
         <>
           <p>
-            Animal Pairs is free to play, with an optional one-time purchase called <strong>{unlock.name}</strong>. It’s found in the
-            Parents area, under <strong>Full Game</strong>.
+            Animal Pairs is free to play. <strong>{unlock.name}</strong> is an optional subscription that renews automatically every{" "}
+            {unlock.period}. It’s in the Parents area, under <strong>{unlock.name}</strong>. There are no ads.
           </p>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="rounded-2xl bg-mint-soft p-4">
@@ -111,21 +112,45 @@ export function supportSections(game: Game): Section[] {
               <ul>{unlock.adds.map((f) => <li key={f}>{f}</li>)}</ul>
             </div>
           </div>
-          <h3 id="restore">Restore a purchase</h3>
-          <ol>
-            <li>Make sure the device is signed in to the <strong>same Apple Account</strong> that made the purchase, and is online.</li>
-            <li>Open the Parents area (gear button, then the grown-ups question).</li>
-            <li>Under Full Game, tap <strong>Restore Purchases</strong>.</li>
-          </ol>
-          <p>The full game unlocks on every iPad or iPhone signed in to that Apple Account. Restoring never changes game progress.</p>
-          <h3>Redeem a gift code</h3>
           <p>
-            In the Parents area, tap <strong>Redeem Gift Code</strong> and enter the code in the App Store’s window. Apple checks the code;
-            Animal Pairs never sees or stores it.
+            If a child taps a locked option, the game shows a short “ask a grown-up” message. Children can’t start a purchase from the game.
+          </p>
+          <h3 id="subscribe">Subscribing</h3>
+          <p>
+            In the Parents area, tap <strong>Subscribe to {unlock.name}</strong>. The price per {unlock.period} is shown before you confirm with
+            Apple, and payment is charged to your Apple Account. The subscription renews automatically unless it is cancelled at least 24 hours
+            before the end of the current period.
+          </p>
+          <h3 id="cancel">Cancelling or changing the subscription</h3>
+          <ul>
+            <li>In the Parents area, tap <strong>Manage Subscription</strong>, or</li>
+            <li>open the <strong>Settings</strong> app, tap your name, then <strong>Subscriptions</strong>.</li>
+          </ul>
+          <p>After cancelling, {unlock.name} stays on until the end of the period you have paid for. The free game keeps working.</p>
+          <h3 id="restore">Restore Purchases</h3>
+          <p>
+            The app checks the subscription with Apple each time it opens, so a subscriber normally doesn’t need to do anything — including on a
+            new device or after reinstalling. If {unlock.name} doesn’t appear:
+          </p>
+          <ol>
+            <li>Make sure the device is signed in to the <strong>same Apple Account</strong> that subscribed, and is online.</li>
+            <li>Open the Parents area (gear button, then the grown-ups question).</li>
+            <li>Under {unlock.name}, tap <strong>Restore Purchases</strong>. Apple may ask you to sign in.</li>
+          </ol>
+          <p>
+            If the app says no active subscription was found, the subscription may have ended, been cancelled or refunded, or belong to a
+            different Apple Account. You can check under Settings → your name → Subscriptions. {unlock.name} works on every iPad or iPhone signed
+            in to that Apple Account. Restoring never changes game progress.
+          </p>
+          <h3>Offer codes</h3>
+          <p>
+            If you were given an offer code, tap <strong>Redeem Offer Code</strong> in the Parents area and enter it in the App Store’s window.
+            Apple checks the code; Animal Pairs never sees or stores it.
           </p>
           <h3>Waiting for approval</h3>
           <p>
-            If your family uses Ask to Buy, the purchase shows as waiting until the family organiser approves it. It unlocks automatically once approved.
+            If your family uses Ask to Buy, the subscription shows as waiting until the family organiser approves it. It starts automatically once
+            approved.
           </p>
           <h3>Refunds</h3>
           <p>
@@ -133,7 +158,7 @@ export function supportSections(game: Game): Section[] {
             <a className={ext} href="https://reportaproblem.apple.com" rel="noopener noreferrer" target="_blank">
               reportaproblem.apple.com
             </a>
-            .
+            . After a refund, {unlock.name} switches off; the free game keeps working.
           </p>
         </>
       ),
@@ -151,7 +176,7 @@ export function supportSections(game: Game): Section[] {
           </p>
           <p>
             To clear it, tap <strong>Reset progress</strong> in the Parents area. This removes game history and any unfinished game from the
-            device. {unlock ? `${unlock.name} stays unlocked.` : ""}
+            device. {unlock ? `It does not affect the ${unlock.name} subscription.` : ""}
           </p>
         </>
       ),
@@ -194,12 +219,12 @@ export function privacySummary(game: Game): string[] {
     `${game.title} does not collect personal information. We, the publisher, receive no data from the app.`,
     "No accounts, ads, tracking, analytics or third-party software development kits (SDKs).",
     "Game settings and progress are stored only on the device.",
-    "The internet is only used, through Apple, for optional App Store purchases, gift codes and restoring purchases.",
+    "The internet is only used, through Apple, for the optional subscription: subscribing, offer codes, restoring purchases and checking its status.",
   ];
 }
 
 export function privacySections(game: Game): Section[] {
-  const unlock = game.fullGameUnlock;
+  const unlock = game.subscription;
   const contact = (
     <EmailLink email={studio.privacyEmail} ph={PH.privacyEmail} subject={`${game.title} privacy`} />
   );
@@ -268,8 +293,8 @@ export function privacySections(game: Game): Section[] {
                 </tr>
                 {unlock && (
                   <tr className="bg-cream/60">
-                    <td className="px-4 py-3">The ID number of the Apple purchase receipt for {unlock.name}</td>
-                    <td className="px-4 py-3">So the full game stays unlocked when the app starts before the App Store answers</td>
+                    <td className="px-4 py-3">The ID number of the latest Apple transaction for {unlock.name} and the date its paid period ends</td>
+                    <td className="px-4 py-3">So {unlock.name} keeps working offline until the end of the period already paid for</td>
                   </tr>
                 )}
               </tbody>
@@ -286,16 +311,16 @@ export function privacySections(game: Game): Section[] {
       ? [
           {
             id: "purchases",
-            title: "Purchases and gift codes",
+            title: "Subscription and offer codes",
             body: (
               <>
                 <p>
-                  {unlock.name} is an optional, one-time in-app purchase made through Apple’s App Store. Apple handles payment and your
-                  Apple Account. We never receive your name, payment details or Apple Account information.
+                  {unlock.name} is an optional auto-renewable subscription made through Apple’s App Store. Apple handles payment, renewals,
+                  cancellations and your Apple Account. We never receive your name, payment details or Apple Account information.
                 </p>
                 <p>
-                  The app checks Apple’s signed purchase record on the device to decide whether the full game is unlocked. Gift codes are entered
-                  in Apple’s own window and checked by Apple; the app never sees or stores them.
+                  The app checks Apple’s signed transaction records and subscription status on the device to decide whether {unlock.name} is
+                  active. Offer codes are entered in Apple’s own window and checked by Apple; the app never sees or stores them.
                 </p>
                 <p>
                   As the seller, Apple provides us with sales and download reports. These do not tell us who you are. Apple’s handling of
@@ -317,11 +342,12 @@ export function privacySections(game: Game): Section[] {
         <>
           <p>{game.title} works fully offline. Everything needed to play is built into the app.</p>
           <p>
-            The app only goes online through Apple’s App Store system, when a grown-up loads the price, buys, redeems a gift code or restores
-            the full game, and to check purchase status. The app has no server of its own and makes no other connections.
+            The app only goes online through Apple’s App Store system: to load the subscription price, when a grown-up subscribes, redeems an
+            offer code, restores purchases or manages the subscription, and to check the subscription status. The app has no server of its own
+            and makes no other connections.
           </p>
           <p>
-            The Parents area contains links to this privacy policy and our support page. They open in the web browser and are only reachable
+            The Parents area contains links to this privacy policy, our support page and the Terms of Use. They open in the web browser and are only reachable
             after the grown-ups check.
           </p>
         </>
@@ -351,7 +377,7 @@ export function privacySections(game: Game): Section[] {
             sell or use for advertising.
           </p>
           <p>
-            Purchases, gift codes, settings, progress and the links to this website are kept in the Parents area, behind a grown-ups check
+            The subscription, offer codes, settings, progress and the links to this website are kept in the Parents area, behind a grown-ups check
             (a multiplication question). The check helps keep young children out; it is not age verification or consent.
           </p>
           <p>
@@ -368,10 +394,10 @@ export function privacySections(game: Game): Section[] {
           <ul>
             <li>
               <strong>Reset progress</strong> in the Parents area removes game history and any unfinished game from the device.
-              {unlock ? ` It does not remove the ${unlock.name} purchase.` : ""}
+              {unlock ? ` It does not affect the ${unlock.name} subscription.` : ""}
             </li>
             <li>Deleting the app removes all of its information from the device. Copies in device backups follow your backup settings.</li>
-            <li>{unlock ? "Purchase records are kept by Apple and managed through your Apple Account. " : ""}We hold no app data, so there is nothing on our side to delete.</li>
+            <li>{unlock ? "Subscription records are kept by Apple and managed through your Apple Account. " : ""}We hold no app data, so there is nothing on our side to delete.</li>
             <li>
               If you email us, we use your message only to reply and keep it for <Val value={studio.supportEmailRetention} ph={PH.emailRetention} />.
               Ask us at {contact} to delete it sooner.
