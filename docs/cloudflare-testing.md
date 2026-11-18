@@ -32,14 +32,20 @@ The Worker's name in the dashboard must be **`littlepenguinstudio`**, matching `
 
 ## 2. Build a preview
 
-Builds start when a branch is pushed. After changing the settings above, either:
+Cloudflare builds a branch only when it is **pushed**, and only if **Builds for non-production branches** was already enabled at that moment.
 
-- open **Deployments / Builds**, find the latest build for branch `claude/lucid-clarke-ief7bj` and choose **Retry**, or
-- ask Claude to push the next change.
+**To retry a build:**
+1. Go to **dash.cloudflare.com** → **Compute (Workers)** → **Workers & Pages** → **littlepenguinstudio**.
+2. Open the **Deployments** tab and find the list of **builds** (it may be labelled *Builds* or *View build history*). Each row shows a branch and a commit.
+3. Click the row for branch `claude/lucid-clarke-ief7bj` (or its **⋯** menu) and choose **Retry build**.
 
-When the build finishes, the build log (and the GitHub commit check) shows the **preview URL**. It usually looks like
-`https://claude-lucid-clarke-ief7bj-littlepenguinstudio.<your-subdomain>.workers.dev`
-(each build also has its own version URL).
+**If there is no row for that branch** (only `main`, failing with “Not ready to publish”), the branch has never been built:
+- check **Settings → Build → Branch control**: **Builds for non-production branches** is enabled, and the non-production deploy command is `npx wrangler versions upload`;
+- then push any change to the branch (or ask Claude to). The build starts by itself.
+
+When the build finishes, open it. The **preview URL** is in the build log and the version details. It usually looks like
+`https://claude-lucid-clarke-ief7bj-littlepenguinstudio.<your-subdomain>.workers.dev`.
+If no URL appears, turn on **Settings → Domains & Routes → Preview URLs** and retry the build.
 
 A failed build for `main` that says **“Not ready to publish”** is expected until every placeholder in `src/content/site.ts` is filled in.
 
