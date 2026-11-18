@@ -26,6 +26,8 @@ Open **dash.cloudflare.com → Workers & Pages → `littlepenguinstudio`** (the 
 
 The Worker's name in the dashboard must be **`littlepenguinstudio`**, matching `name` in `wrangler.toml`.
 
+> **Check the production branch.** Cloudflare pre-fills it with the GitHub repo's *default* branch, which for this repo was `claude/lucid-clarke-ief7bj` (the first branch pushed). Set it to **`main`**. Optionally, also change the default branch in GitHub → repo **Settings → General → Default branch**. Whatever it is set to, any `wrangler deploy` (production) build is refused while placeholders remain; only `versions upload` (preview) builds succeed.
+
 **Settings → Domains & Routes:** make sure **workers.dev** and **Preview URLs** are enabled. Preview links only exist when Preview URLs are on.
 
 **Recommended while placeholders are visible:** preview links are public by default. Where Cloudflare offers it next to *Preview URLs*, turn on **Cloudflare Access** so that only your email can open them.

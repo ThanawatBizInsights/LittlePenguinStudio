@@ -9,14 +9,9 @@ import { Cloud, Wave } from "@/components/illustrations/Decor";
 
 /* eslint-disable @next/next/no-img-element -- static export; images are pre-sized WebP */
 
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return games.map((g) => ({ slug: g.slug }));
-}
-
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const game = getGame((await params).slug);
+/** Page metadata for a game's route file. */
+export function gameOverviewMetadata(slug: string): Metadata {
+  const game = getGame(slug);
   if (!game) return {};
   const description = `${game.title}: ${game.tagline.toLowerCase()} for iPad and iPhone. Meet ${game.characters.length} animal friends and find the matching pairs.`;
   return {
@@ -27,8 +22,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function GamePage({ params }: { params: Promise<{ slug: string }> }) {
-  const game = getGame((await params).slug);
+/** Shared page body; each game has a tiny route file under src/app/games/<slug>/ that renders this. */
+export function GameOverviewPage({ slug }: { slug: string }) {
+  const game = getGame(slug);
   if (!game) notFound();
   const paths = gamePaths(game.slug);
 

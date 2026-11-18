@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { gamePaths, games, getGame, mailto, studio, PH, unresolvedFacts } from "@/content/site";
+import { gamePaths, getGame, mailto, studio, PH, unresolvedFacts } from "@/content/site";
 import { gameContent } from "@/content/games";
 import { Container, Eyebrow } from "@/components/Curve";
 import { Button } from "@/components/Button";
@@ -10,14 +10,9 @@ import { SectionedArticle } from "@/components/Sections";
 import { AppIcon } from "@/components/GameParts";
 import { Wave } from "@/components/illustrations/Decor";
 
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return games.filter((g) => gameContent[g.slug]).map((g) => ({ slug: g.slug }));
-}
-
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const game = getGame((await params).slug);
+/** Page metadata for a game's route file. */
+export function gameSupportMetadata(slug: string): Metadata {
+  const game = getGame(slug);
   if (!game) return {};
   const ready = unresolvedFacts(game).length === 0;
   return {
@@ -28,8 +23,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function SupportPage({ params }: { params: Promise<{ slug: string }> }) {
-  const game = getGame((await params).slug);
+/** Shared page body; each game has a tiny route file under src/app/games/<slug>/ that renders this. */
+export function GameSupportPage({ slug }: { slug: string }) {
+  const game = getGame(slug);
   const content = game && gameContent[game.slug];
   if (!game || !content) notFound();
   const href = mailto(studio.supportEmail, `${game.title} support`);

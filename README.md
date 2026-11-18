@@ -60,7 +60,8 @@ To regenerate the favicon PNG and social image after design changes, run `npm ru
 
 1. Append a new object to `games` in `src/content/site.ts`, with a new `slug`, and add its images under `public/games/<slug>/`.
 2. Create `src/content/games/<slug>.tsx` with its support and privacy content (copy the Animal Pairs file as a template, then audit the new app), and register it in `src/content/games/index.ts`.
-3. Rebuild. The home games grid, support hub, parents page, privacy overview, footer, sitemap and `/games/<slug>/`, `/games/<slug>/support/` and `/games/<slug>/privacy/` are all generated.
+3. Copy the folder `src/app/games/animal-pairs/` to `src/app/games/<slug>/` and change `const slug = "animal-pairs"` in its three `page.tsx` files. These tiny route files render the shared layouts in `src/components/game-pages/`. Static folders are used instead of a dynamic `[slug]` route because Cloudflare serves Next's `$`-named prefetch files for dynamic routes in a redirect loop.
+4. Rebuild. The home games grid, support hub, parents page, privacy overview, footer, sitemap and the game's three pages all pick up the new game.
 
 ## Deploy to Cloudflare (Workers static assets)
 
