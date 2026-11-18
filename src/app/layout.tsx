@@ -19,11 +19,18 @@ export const metadata: Metadata = {
     siteName: studio.name,
     title: studio.name,
     description: studio.tagline,
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Little Penguin waving beside colourful animal matching cards" }],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: `${studio.name}: ${studio.mascotName} the snowy owl above a pastel snow canyon` }],
     locale: "en_GB",
   },
   twitter: { card: "summary_large_image", title: studio.name, description: studio.tagline, images: ["/og-image.png"] },
-  icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }], apple: "/apple-touch-icon.png" },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/favicon-32.png", type: "image/png", sizes: "32x32" },
+      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export const viewport: Viewport = { themeColor: "#fbf4e8" };

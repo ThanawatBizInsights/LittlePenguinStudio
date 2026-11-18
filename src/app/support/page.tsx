@@ -4,16 +4,16 @@ import { gamePaths, games, PH, studio } from "@/content/site";
 import { EmailLink, PageIntro, Panel } from "@/components/Content";
 import { Container } from "@/components/Curve";
 import { Arrow } from "@/components/Button";
-import { Art } from "@/components/Art";
-import { Penguin } from "@/components/illustrations/Penguin";
+import { Snowy } from "@/components/Brand";
 import { Bubble, SpeechBubble } from "@/components/illustrations/Decor";
+import { canonical } from "@/content/env";
 
 /* eslint-disable @next/next/no-img-element */
 
 export const metadata: Metadata = {
   title: "Support",
-  description: "Help with Little Penguin Studio games. Choose a game for its support page, or contact us.",
-  alternates: { canonical: "/support/" },
+  description: "Help with Little Snowy Owl Studio games. Choose a game for its support page, or contact us.",
+  alternates: canonical("/support/"),
 };
 
 export default function SupportHub() {
@@ -27,7 +27,7 @@ export default function SupportHub() {
             <SpeechBubble className="absolute right-[6%] top-[6%] w-[26%]" />
             <Bubble className="absolute left-[12%] top-[16%] w-[10%]" />
             <div className="absolute bottom-[4%] left-[14%] w-[66%]">
-              <Art slot="penguinPeek" className="w-full" fallback={<Penguin pose="wave" bob className="w-full" />} />
+              <Snowy pose="reading" className="w-full" priority />
             </div>
           </div>
         }

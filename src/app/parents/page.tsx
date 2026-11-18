@@ -5,14 +5,14 @@ import { PageIntro, Panel } from "@/components/Content";
 import { Container } from "@/components/Curve";
 import { Button, TextLink } from "@/components/Button";
 import { AppInfoTable } from "@/components/GameParts";
-import { Art } from "@/components/Art";
-import { Penguin } from "@/components/illustrations/Penguin";
+import { Snowy } from "@/components/Brand";
 import { Heart, Shield, SpeechBubble, Star } from "@/components/illustrations/Decor";
+import { canonical } from "@/content/env";
 
 export const metadata: Metadata = {
   title: "For Parents",
-  description: "Practical information for parents and carers about Little Penguin Studio games, including app details, privacy and support.",
-  alternates: { canonical: "/parents/" },
+  description: "Practical information for parents and carers about Little Snowy Owl Studio games, including app details, privacy and support.",
+  alternates: canonical("/parents/"),
 };
 
 export default function ParentsPage() {
@@ -26,7 +26,7 @@ export default function ParentsPage() {
             <Heart className="absolute left-[8%] top-[10%] w-[18%]" />
             <Star className="absolute right-[10%] top-[8%] w-[16%] motion-safe:animate-twinkle" />
             <div className="absolute bottom-[4%] left-[18%] w-[64%]">
-              <Art slot="penguinStar" className="w-full" fallback={<Penguin pose="star" bob className="w-full" />} />
+              <Snowy pose="reading" className="w-full" priority />
             </div>
           </div>
         }

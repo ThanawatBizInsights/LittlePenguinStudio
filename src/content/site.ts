@@ -1,5 +1,5 @@
 /**
- * Little Penguin Studio — shared site content and configuration.
+ * Little Snowy Owl Studio — shared site content and configuration.
  *
  * This is the ONE place to update studio details, contact emails, game
  * descriptions, app facts and screenshots. Every page reads from here.
@@ -78,12 +78,19 @@ export type Game = {
 export type Studio = {
   /** Visible brand. */
   name: string;
+  /** The studio mascot's name. */
+  mascotName: string;
   /** Legal publisher name — must match the App Store seller (Individual: your legal name). */
   publisherName: string;
   supportEmail: string;
   privacyEmail: string;
   /** How long support emails are kept, e.g. "12 months". */
   supportEmailRetention: string;
+  /**
+   * Public origin used for social-image URLs and (only when SITE_LIVE=true)
+   * canonical tags and the sitemap. Set the build variable SITE_URL once the
+   * custom domain is connected and serves HTTPS.
+   */
   siteUrl: string;
   tagline: string;
   description: string;
@@ -96,8 +103,12 @@ export type Studio = {
  */
 const SUPPORT_EMAIL = "littlepenguinsupport@icloud.com";
 
+/** Intended custom domain (not yet connected). Override with the SITE_URL build variable. */
+export const PLANNED_SITE_URL = "https://littlesnowyowl.com";
+
 export const studio: Studio = {
-  name: "Little Penguin Studio",
+  name: "Little Snowy Owl Studio",
+  mascotName: "Snowy",
   /**
    * The EXACT seller name shown in your Apple Developer account / App Store
    * Connect (Individual enrollment: your legal name). Never the brand name.
@@ -110,12 +121,12 @@ export const studio: Studio = {
    * last reply. Change this text if the practice changes.
    */
   supportEmailRetention: "12 months after the last reply",
-  siteUrl: "https://littlepenguinstudio.com",
+  siteUrl: (process.env.SITE_URL || PLANNED_SITE_URL).replace(/\/+$/, ""),
   tagline: "Playful little worlds for curious minds.",
   description:
-    "Little Penguin Studio creates playful little worlds for children and families.",
+    "Little Snowy Owl Studio creates playful little worlds for children and families.",
   story:
-    "Little Penguin Studio creates playful little worlds for children and families. Our journey begins with Animal Pairs, with more adventures to come.",
+    "Little Snowy Owl Studio creates playful little worlds for children and families. Our journey begins with Animal Pairs, with more adventures to come.",
 };
 
 const ap = "/games/animal-pairs";

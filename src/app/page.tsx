@@ -1,16 +1,13 @@
 import Link from "next/link";
-import { games, studio } from "@/content/site";
+import { gamePaths, games, studio } from "@/content/site";
 import { Button, TextLink, Arrow } from "@/components/Button";
 import { Container, CurvedSection, Eyebrow } from "@/components/Curve";
 import { Penguin } from "@/components/illustrations/Penguin";
-import { animalArt, animalKinds, type AnimalKind } from "@/components/illustrations/Animals";
-import { Art, Tile, hasArt } from "@/components/Art";
-import { artSlots } from "@/content/art";
+import { HeroCanyon, Snowy, SnowyPromo, Sticker } from "@/components/Brand";
 import {
-  Blocks, Bubble, Bulb, Cloud, Family, Heart, Puzzle, Shield, Smiley, Sparkle, SpeechBubble, Star, Wave, Iceberg,
+  Bulb, Family, Heart, Puzzle, Shield, Smiley, Sparkle, SpeechBubble, Star, Wave,
 } from "@/components/illustrations/Decor";
-import { GameKeyArt, GameCard, StoreCta } from "@/components/GameParts";
-import { MiniMatchGame } from "@/components/MiniMatchGame";
+import { GameCard, StoreCta } from "@/components/GameParts";
 
 const featured = games[0];
 
@@ -25,7 +22,7 @@ const parentCards = [
   {
     title: "About the game",
     text: "What Animal Pairs is and how a round of matching works.",
-    href: `/games/${featured.slug}/`,
+    href: gamePaths(featured.slug).overview,
     bg: "bg-butter-soft",
     icon: <Puzzle className="h-12 w-12" />,
   },
@@ -45,68 +42,43 @@ const parentCards = [
   },
 ];
 
-const tileArt = Object.fromEntries(
-  animalKinds.filter((k) => hasArt(animalArt[k])).map((k) => [k, artSlots[animalArt[k]]]),
-) as Partial<Record<AnimalKind, string>>;
-
 export default function Home() {
   return (
     <>
-      {/* HERO */}
-      <section aria-labelledby="hero-title" className="relative">
-        <Container className="grid items-center gap-6 pb-6 pt-4 lg:grid-cols-[1.05fr_1fr] lg:gap-4 lg:pb-14 lg:pt-6">
-          <div className="relative z-10 order-2 lg:order-1">
-            <Eyebrow>Play. Wonder. Discover.</Eyebrow>
-            <h1 id="hero-title" className="mt-4 text-[clamp(2.7rem,7.2vw,5.2rem)] leading-[0.98]">
-              Little games.
-              <br />
-              Big happy discoveries.
-            </h1>
-            <Wave className="mt-5 h-4 w-48" />
-            <p className="mt-6 max-w-md text-xl text-ink-soft sm:text-2xl">{studio.tagline}</p>
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-              <Button href="#games" arrow>
-                Explore our games
-              </Button>
-              <TextLink href="/about/">Meet Little Penguin</TextLink>
+      {/* HERO — copy above the art on phones/tablets; over the open left side of the art on desktop */}
+      <section aria-labelledby="hero-title" className="relative overflow-hidden">
+        <div className="relative flex flex-col lg:block lg:h-[clamp(34rem,56.25vw,46rem)] lg:w-full">
+          <HeroCanyon
+            alt={`${studio.mascotName} the snowy owl smiling on a snowy ledge above a pastel canyon river`}
+            className="order-2 block h-auto w-full lg:absolute lg:inset-0 lg:h-full lg:object-cover lg:object-[72%_60%]"
+          />
+          {/* Soft cream wash behind the copy on desktop for contrast */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 left-0 hidden w-[62%] bg-gradient-to-r from-cream/90 via-cream/60 to-transparent lg:block"
+          />
+          <Container className="relative order-1 pb-8 pt-4 lg:absolute lg:inset-0 lg:flex lg:items-center lg:py-0">
+            <div className="relative max-w-[34rem]">
+              <Sticker name="snowflake-b" className="absolute -right-4 -top-2 hidden w-14 rotate-12 opacity-90 sm:block lg:-right-16" />
+              <Eyebrow>Play. Wonder. Discover.</Eyebrow>
+              <h1 id="hero-title" className="mt-4 text-[clamp(2.6rem,6vw,4.6rem)] leading-[0.98]">
+                Little games.
+                <br />
+                Big happy discoveries.
+              </h1>
+              <Wave className="mt-5 h-4 w-48" />
+              <p className="mt-6 max-w-md text-xl text-ink-soft sm:text-2xl">
+                Welcome to {studio.name}, home of Animal Pairs and playful little worlds for curious minds.
+              </p>
+              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+                <Button href={gamePaths(featured.slug).overview} arrow>
+                  Meet Animal Pairs
+                </Button>
+                <TextLink href="/about/">Meet {studio.mascotName}</TextLink>
+              </div>
             </div>
-          </div>
-
-          {/* Illustration */}
-          <div className="relative order-1 mx-auto aspect-[1.08] w-full max-w-[34rem] lg:order-2 lg:max-w-none">
-            <svg viewBox="0 0 600 560" className="absolute inset-0 h-full w-full" aria-hidden="true" focusable="false">
-              <defs>
-                <linearGradient id="heroSky" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stopColor="#3d6fe0" />
-                  <stop offset="1" stopColor="#2a54c0" />
-                </linearGradient>
-              </defs>
-              <path
-                d="M120 40 C220 -10 330 30 420 18 C520 6 590 60 596 160 C602 260 600 420 560 500 C520 560 380 556 260 548 C140 540 40 530 14 440 C-10 350 40 300 50 220 C60 130 40 80 120 40 Z"
-                fill="url(#heroSky)"
-              />
-            </svg>
-            <Cloud className="absolute right-[4%] top-[8%] w-[18%]" />
-            <Cloud className="absolute left-[10%] top-[52%] w-[13%] opacity-90" />
-            <Bubble className="absolute left-[44%] top-[6%] w-[6%]" />
-            <Bubble className="absolute right-[30%] top-[46%] w-[4%]" />
-            <Star className="absolute right-[24%] top-[3%] w-[16%] motion-safe:animate-twinkle" />
-            <Sparkle className="absolute left-[30%] top-[22%] w-[7%]" color="#ffd94d" />
-            <Tile kind="fox" className="absolute left-[6%] top-[8%] w-[25%] -rotate-[8deg]" />
-            <Tile kind="bear" className="absolute left-[4%] top-[58%] w-[24%] rotate-[6deg]" />
-            <Tile kind="bunny" className="absolute right-[3%] top-[26%] w-[23%] rotate-[8deg]" />
-            <Iceberg className="absolute bottom-[3%] left-[18%] w-[66%]" />
-            <div className="absolute bottom-[12%] left-[30%] w-[42%] motion-safe:animate-bob">
-              <Art slot="penguinWave" className="w-full" fallback={<Penguin pose="wave" className="w-full" />} />
-            </div>
-            <div
-              aria-hidden="true"
-              className="absolute bottom-[2%] right-[0%] grid aspect-square w-[24%] -rotate-12 place-items-center rounded-full bg-butter p-2 text-center font-display text-[clamp(0.8rem,2.4vw,1.2rem)] font-bold leading-tight shadow-[0_6px_0_0_rgba(28,35,80,0.18)] ring-4 ring-paper"
-            >
-              Made for little explorers
-            </div>
-          </div>
-        </Container>
+          </Container>
+        </div>
       </section>
 
       {/* FEATURE STRIP */}
@@ -128,7 +100,8 @@ export default function Home() {
       </CurvedSection>
 
       {/* GAMES */}
-      <section id="games" aria-labelledby="games-title" className="scroll-mt-4 py-16 sm:py-20">
+      <section id="games" aria-labelledby="games-title" className="relative scroll-mt-4 py-16 sm:py-20">
+        <Sticker name="cloud-a" className="absolute right-4 top-6 hidden w-24 opacity-90 lg:block xl:right-12" />
         <Container>
           <Eyebrow>Our little game world</Eyebrow>
           <h2 id="games-title" className="sr-only">Our games</h2>
@@ -138,15 +111,15 @@ export default function Home() {
             aria-labelledby="featured-title"
             className="mt-5 grid overflow-hidden rounded-[2.5rem] bg-paper shadow-[0_10px_0_0_rgba(28,35,80,0.08)] ring-1 ring-ink/10 md:grid-cols-2"
           >
-            <div className="relative min-h-72 bg-butter md:min-h-[26rem]">
-              <GameKeyArt game={featured} className="absolute inset-0" />
+            <div className="relative grid place-items-center bg-lilac-soft p-6 sm:p-8">
+              <SnowyPromo className="w-full max-w-[34rem]" />
             </div>
             <div className="flex flex-col justify-center gap-4 p-7 sm:p-10">
               <p className="font-extrabold uppercase tracking-[0.14em] text-coral-deep">Our first little adventure</p>
               <h3 id="featured-title" className="text-[clamp(2.4rem,5vw,3.5rem)]">{featured.title}</h3>
               <p className="text-xl text-ink-soft">{featured.summary}</p>
               <div className="mt-2 flex flex-wrap items-center gap-4">
-                <Button href={`/games/${featured.slug}/`} arrow>
+                <Button href={gamePaths(featured.slug).overview} arrow>
                   Meet the game
                 </Button>
                 <StoreCta game={featured} />
@@ -156,7 +129,8 @@ export default function Home() {
 
           {/* Growing world */}
           <div className="mt-16 grid gap-8 lg:grid-cols-[1fr_2.2fr] lg:items-start">
-            <div>
+            <div className="relative">
+              <Snowy pose="star" className="mb-4 w-28 sm:w-32" />
               <h3 className="text-[clamp(2rem,4vw,2.8rem)]">Our little world is growing.</h3>
               <Wave className="mt-3 h-3.5 w-32" color="#ffd94d" />
               <p className="mt-4 text-lg text-ink-soft">
@@ -171,38 +145,25 @@ export default function Home() {
               ))}
               <li>
                 <div className="flex h-full flex-col overflow-hidden rounded-[2rem] bg-paper ring-1 ring-ink/10">
-                  <div className="relative aspect-[4/3] bg-mint">
-                    <Penguin pose="telescope" className="absolute bottom-[4%] left-1/2 w-[46%] -translate-x-1/2" />
-                    <Cloud className="absolute left-[8%] top-[10%] w-[22%]" />
-                    <Sparkle className="absolute right-[10%] top-[10%] w-[10%]" />
+                  <div className="relative grid aspect-[4/3] place-items-center bg-mint-soft">
+                    <Snowy pose="nap" className="w-[46%]" />
+                    <Sticker name="moon-b" className="absolute right-[9%] top-[9%] w-[13%]" />
+                    <Sticker name="star-b" className="absolute left-[10%] top-[14%] w-[9%]" />
                   </div>
                   <div className="flex flex-1 flex-col gap-2 p-5">
                     <h3 className="text-2xl">More little adventures</h3>
-                    <p className="text-ink-soft">Little Penguin is looking out for what comes next.</p>
+                    <p className="text-ink-soft">{studio.mascotName} and her friends are dreaming up what comes next.</p>
                   </div>
                 </div>
               </li>
             </ul>
           </div>
         </Container>
+        <Sticker name="feather-b" className="absolute bottom-2 left-4 hidden w-16 -rotate-12 opacity-90 lg:block xl:left-12" />
       </section>
 
-      {/* MINI-GAME */}
-      <CurvedSection color="#d4f2e4" className="py-12 sm:py-16" labelledBy="play-title">
-        <Container>
-          <div className="mb-8 max-w-2xl">
-            <Eyebrow>Try a little matching</Eyebrow>
-            <h2 id="play-title" className="mt-3 text-[clamp(2.2rem,5vw,3.4rem)]">Find the animal pairs</h2>
-            <p className="mt-3 text-lg text-ink-soft">
-              A tiny game you can play right here. It’s a playful preview made for this website — not the Animal Pairs app itself.
-            </p>
-          </div>
-          <MiniMatchGame tileArt={tileArt} />
-        </Container>
-      </CurvedSection>
-
       {/* STORY + GROWN-UPS BAND */}
-      <section aria-label="Our story and information for grown-ups" className="mt-16">
+      <section aria-label="Our story and information for grown-ups" className="mt-4">
         <div className="grid overflow-hidden lg:grid-cols-[1fr_1.1fr_1fr]">
           <div className="relative bg-coral-soft px-6 py-12 text-ink sm:px-10 lg:rounded-r-[4rem] lg:py-16">
             <Sparkle className="absolute left-5 top-5 w-8" />
@@ -216,13 +177,12 @@ export default function Home() {
               Read our story <Arrow />
             </Link>
           </div>
-          <div className="relative min-h-72 bg-mint">
-            <Blocks className="absolute bottom-6 left-1/2 w-[86%] max-w-md -translate-x-1/2" />
-            <div className="absolute bottom-6 left-1/2 w-[46%] max-w-[13rem] -translate-x-1/2">
-              <Art slot="penguinStar" className="w-full motion-safe:animate-bob" fallback={<Penguin pose="star" bob className="w-full" />} />
-            </div>
-            <Sparkle className="absolute right-[20%] top-8 w-10" />
-            <Star className="absolute left-[12%] top-10 w-10 motion-safe:animate-twinkle" />
+          {/* Snowy waving hello, with her penguin friend beside her */}
+          <div className="relative flex min-h-72 items-end justify-center gap-2 bg-mint px-6 pb-6 pt-14">
+            <Snowy pose="wave" bob className="w-[42%] max-w-[13rem]" />
+            <Penguin pose="cheer" className="w-[34%] max-w-[10.5rem]" />
+            <Sparkle className="absolute right-[16%] top-6 w-10" />
+            <Star className="absolute left-[12%] top-8 w-10 motion-safe:animate-twinkle" />
           </div>
           <div className="relative flex flex-col items-center justify-center bg-lilac px-6 py-12 text-center sm:px-10 lg:rounded-l-[4rem]">
             <Smiley className="h-16 w-16" />
@@ -236,10 +196,14 @@ export default function Home() {
       </section>
 
       {/* PARENTS PREVIEW */}
-      <section aria-labelledby="parents-title" className="py-16 sm:py-20">
+      <section aria-labelledby="parents-title" className="relative py-16 sm:py-20">
         <Container>
-          <Eyebrow>For parents and carers</Eyebrow>
-          <h2 id="parents-title" className="mt-3 text-[clamp(2.2rem,5vw,3.2rem)]">Everything you need to know</h2>
+          <div className="relative">
+            <Eyebrow>For parents and carers</Eyebrow>
+            <h2 id="parents-title" className="mt-3 text-[clamp(2.2rem,5vw,3.2rem)]">Everything you need to know</h2>
+            <Sticker name="heart-b" className="absolute right-0 top-0 hidden w-16 rotate-6 md:block" />
+            <Sticker name="star-a" className="absolute right-20 top-6 hidden w-10 -rotate-12 md:block" />
+          </div>
           <ul className="mt-8 grid gap-5 md:grid-cols-3">
             {parentCards.map((c) => (
               <li key={c.title}>

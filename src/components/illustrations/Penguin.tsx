@@ -12,7 +12,7 @@ type Props = {
 };
 
 /**
- * Little Penguin — the studio mascot. Original SVG: round navy body, cream belly,
+ * Snowy’s penguin friend (the former studio mascot). Original SVG: round navy body, cream belly,
  * orange beak and feet, rosy cheeks and a mint scarf.
  */
 export function Penguin({ pose = "wave", className = "", bob = false, title }: Props) {

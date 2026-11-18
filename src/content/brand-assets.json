@@ -1,0 +1,132 @@
+{
+  "snowy-mark": {
+    "src": "/brand/snowy-mark.webp",
+    "width": 422,
+    "height": 422
+  },
+  "snowy-nap": {
+    "src": "/brand/snowy-nap.webp",
+    "width": 548,
+    "height": 549
+  },
+  "snowy-promo": {
+    "src": "/brand/snowy-promo.webp",
+    "width": 1400,
+    "height": 930
+  },
+  "snowy-reading": {
+    "src": "/brand/snowy-reading.webp",
+    "width": 483,
+    "height": 619
+  },
+  "snowy-star": {
+    "src": "/brand/snowy-star.webp",
+    "width": 446,
+    "height": 631
+  },
+  "snowy-wave": {
+    "src": "/brand/snowy-wave.webp",
+    "width": 529,
+    "height": 630
+  },
+  "sticker-cloud-a": {
+    "src": "/brand/sticker-cloud-a.webp",
+    "width": 320,
+    "height": 238
+  },
+  "sticker-confetti-a": {
+    "src": "/brand/sticker-confetti-a.webp",
+    "width": 315,
+    "height": 311
+  },
+  "sticker-feather-a": {
+    "src": "/brand/sticker-feather-a.webp",
+    "width": 310,
+    "height": 320
+  },
+  "sticker-feather-b": {
+    "src": "/brand/sticker-feather-b.webp",
+    "width": 271,
+    "height": 320
+  },
+  "sticker-heart-a": {
+    "src": "/brand/sticker-heart-a.webp",
+    "width": 320,
+    "height": 274
+  },
+  "sticker-heart-b": {
+    "src": "/brand/sticker-heart-b.webp",
+    "width": 320,
+    "height": 280
+  },
+  "sticker-leaf-a": {
+    "src": "/brand/sticker-leaf-a.webp",
+    "width": 277,
+    "height": 320
+  },
+  "sticker-moon-a": {
+    "src": "/brand/sticker-moon-a.webp",
+    "width": 304,
+    "height": 320
+  },
+  "sticker-moon-b": {
+    "src": "/brand/sticker-moon-b.webp",
+    "width": 293,
+    "height": 320
+  },
+  "sticker-rainbow-a": {
+    "src": "/brand/sticker-rainbow-a.webp",
+    "width": 320,
+    "height": 209
+  },
+  "sticker-snow-arch-a": {
+    "src": "/brand/sticker-snow-arch-a.webp",
+    "width": 320,
+    "height": 256
+  },
+  "sticker-snowballs-a": {
+    "src": "/brand/sticker-snowballs-a.webp",
+    "width": 306,
+    "height": 320
+  },
+  "sticker-snowflake-a": {
+    "src": "/brand/sticker-snowflake-a.webp",
+    "width": 308,
+    "height": 320
+  },
+  "sticker-snowflake-b": {
+    "src": "/brand/sticker-snowflake-b.webp",
+    "width": 298,
+    "height": 320
+  },
+  "sticker-star-a": {
+    "src": "/brand/sticker-star-a.webp",
+    "width": 320,
+    "height": 300
+  },
+  "sticker-star-b": {
+    "src": "/brand/sticker-star-b.webp",
+    "width": 320,
+    "height": 304
+  },
+  "sticker-tree-a": {
+    "src": "/brand/sticker-tree-a.webp",
+    "width": 275,
+    "height": 320
+  },
+  "sticker-tree-b": {
+    "src": "/brand/sticker-tree-b.webp",
+    "width": 269,
+    "height": 320
+  },
+  "hero-canyon-1672": {
+    "src": "/brand/hero-canyon-1672.webp",
+    "width": 1672,
+    "height": 941
+  },
+  "hero-canyon-900": {
+    "src": "/brand/hero-canyon-900.webp",
+    "width": 900,
+    "height": 507
+  }
+}

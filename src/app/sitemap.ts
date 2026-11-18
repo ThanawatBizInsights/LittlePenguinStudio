@@ -1,9 +1,12 @@
 import type { MetadataRoute } from "next";
 import { gamePaths, games, studio, unresolvedFacts } from "@/content/site";
+import { isLive } from "@/content/env";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // Previews and drafts list nothing: the custom domain may not be connected yet.
+  if (!isLive) return [];
   const paths = ["/", "/about/", "/parents/", "/support/", "/privacy/"];
   for (const g of games) {
     const p = gamePaths(g.slug);

@@ -385,7 +385,7 @@ export function privacySections(game: Game): Section[] {
       title: "Our website",
       body: (
         <p>
-          This policy covers the app. Our website, littlepenguinstudio.com, has its own short{" "}
+          This policy covers the app. Our website has its own short{" "}
           <Link className={ext} href="/privacy/">privacy notice</Link>.
         </p>
       ),

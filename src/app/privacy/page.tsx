@@ -4,13 +4,14 @@ import { gamePaths, games, studio } from "@/content/site";
 import { PageIntro, Panel } from "@/components/Content";
 import { Container } from "@/components/Curve";
 import { Arrow } from "@/components/Button";
-import { Penguin } from "@/components/illustrations/Penguin";
+import { Snowy } from "@/components/Brand";
 import { Shield } from "@/components/illustrations/Decor";
+import { canonical } from "@/content/env";
 
 export const metadata: Metadata = {
   title: "Privacy",
-  description: "Privacy overview for the Little Penguin Studio website and links to each app’s privacy policy.",
-  alternates: { canonical: "/privacy/" },
+  description: "Privacy overview for the Little Snowy Owl Studio website and links to each app’s privacy policy.",
+  alternates: canonical("/privacy/"),
 };
 
 export default function PrivacyOverview() {
@@ -23,7 +24,7 @@ export default function PrivacyOverview() {
         art={
           <div className="relative aspect-square rounded-full bg-butter">
             <Shield className="absolute right-[6%] top-[6%] w-[26%]" />
-            <Penguin pose="stand" className="absolute bottom-[4%] left-[16%] w-[62%]" />
+            <Snowy pose="nap" className="absolute bottom-[6%] left-[14%] w-[66%]" priority />
           </div>
         }
       >
@@ -55,14 +56,11 @@ export default function PrivacyOverview() {
           <Panel tone="mint">
             <h2 id="site-title" className="text-3xl">This website</h2>
             <p className="mt-2 text-ink-soft">
-              This describes how littlepenguinstudio.com is built. It does not describe our apps — see each app’s policy above.
+              This describes how this website is built. It does not describe our apps — see each app’s policy above.
             </p>
             <ul className="mt-5 list-disc space-y-2 pl-6 text-lg">
               <li>The website does not use cookies, analytics, advertising, or tracking scripts.</li>
               <li>There are no accounts, sign-up forms, or contact forms on this website.</li>
-              <li>
-                The mini matching game runs entirely in your browser. It does not save scores or send any information anywhere.
-              </li>
               <li>
                 Like any website, our hosting provider processes standard technical information (such as IP addresses) to deliver and protect the site.
               </li>

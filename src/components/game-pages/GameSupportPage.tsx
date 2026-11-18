@@ -7,8 +7,9 @@ import { Button } from "@/components/Button";
 import { NotReadyBanner, Ph, Val } from "@/components/Content";
 import { GameSubNav } from "@/components/GameSubNav";
 import { SectionedArticle } from "@/components/Sections";
-import { AppIcon } from "@/components/GameParts";
+import { Snowy } from "@/components/Brand";
 import { Wave } from "@/components/illustrations/Decor";
+import { canonical } from "@/content/env";
 
 /** Page metadata for a game's route file. */
 export function gameSupportMetadata(slug: string): Metadata {
@@ -18,7 +19,7 @@ export function gameSupportMetadata(slug: string): Metadata {
   return {
     title: `${game.title} Support`,
     description: `Help for ${game.title}: music and sound settings, restoring Full Game Unlock, resetting progress and how to contact ${studio.name}.`,
-    alternates: { canonical: gamePaths(game.slug).support },
+    alternates: canonical(gamePaths(game.slug).support),
     robots: ready ? undefined : { index: false },
   };
 }
@@ -43,7 +44,7 @@ export function GameSupportPage({ slug }: { slug: string }) {
               Answers to common questions about {game.title}, and how to get in touch.
             </p>
           </div>
-          <AppIcon game={game} className="hidden w-40 rotate-3 md:block" />
+          <Snowy pose="reading" className="hidden w-44 md:block" priority />
         </div>
 
         <div className="mt-8">

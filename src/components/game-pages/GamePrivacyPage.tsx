@@ -7,6 +7,7 @@ import { NotReadyBanner, Panel, Val } from "@/components/Content";
 import { GameSubNav } from "@/components/GameSubNav";
 import { SectionedArticle } from "@/components/Sections";
 import { Shield, Wave } from "@/components/illustrations/Decor";
+import { canonical } from "@/content/env";
 
 /** Page metadata for a game's route file. */
 export function gamePrivacyMetadata(slug: string): Metadata {
@@ -16,7 +17,7 @@ export function gamePrivacyMetadata(slug: string): Metadata {
   return {
     title: `${game.title} Privacy Policy`,
     description: `How the ${game.title} app handles information: what is stored on the device, purchases through Apple, and how parents can contact the publisher.`,
-    alternates: { canonical: gamePaths(game.slug).privacy },
+    alternates: canonical(gamePaths(game.slug).privacy),
     robots: ready ? undefined : { index: false },
   };
 }

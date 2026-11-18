@@ -1,6 +1,6 @@
-# Little Penguin Studio website
+# Little Snowy Owl Studio website
 
-Studio website for **littlepenguinstudio.com**, built with Next.js, TypeScript and Tailwind CSS. It is exported as a fully static site (`out/`) for Cloudflare Pages. It has no server, analytics, cookies, trackers or accounts.
+Studio website for **Little Snowy Owl Studio** (mascot: **Snowy**, a snowy owl), built with Next.js, TypeScript and Tailwind CSS. It is exported as a fully static site (`out/`) served by a Cloudflare Worker. The intended custom domain is **littlesnowyowl.com** (not connected yet; see *Domain* below). It has no server, analytics, cookies, trackers or accounts.
 
 ## Run and preview
 
@@ -29,11 +29,11 @@ npm run check:release   # build, then FAIL if any [PLACEHOLDER] or draft banner 
 
 | Route | Purpose |
 |---|---|
-| `/` | Home: hero, featured game, mini matching game, story, parent info |
+| `/` | Home: snow-canyon hero, featured game, games, story, parent info |
 | `/games/animal-pairs/` | Animal Pairs overview (App Store **Marketing URL**) |
 | `/games/animal-pairs/support/` | Animal Pairs support (App Store **Support URL**) |
 | `/games/animal-pairs/privacy/` | Animal Pairs privacy policy (App Store **Privacy Policy URL**) |
-| `/about/` | Our Story |
+| `/about/` | Our Story / Meet Snowy |
 | `/parents/` | For Parents: app details, privacy and support |
 | `/support/` | Support hub (links to each game's support page) |
 | `/privacy/` | Website privacy notice + links to each app's policy |
@@ -43,18 +43,31 @@ npm run check:release   # build, then FAIL if any [PLACEHOLDER] or draft banner 
 This is the single source of truth: studio name, publisher name, support/privacy email, site URL, game descriptions, App Store URL, app details table, screenshots, privacy status and verified claims.
 
 - Empty values stay hidden. With no `supportEmail`, no mailto button is rendered. With no `appStoreUrl`, the game shows a status pill instead of a download link.
-- App details set to `null` display **"Details to be confirmed"**.
+- App details set to `null` display **"To be confirmed"**.
 - When the App Store link exists, set `status: "available"` and `appStoreUrl`. Optionally add Apple's official "Download on the App Store" badge from Apple's marketing resources.
 - Support and privacy text for each game lives in `src/content/games/<slug>.tsx` (registered in `src/content/games/index.ts`). The Animal Pairs policy is based on a source audit (`docs/animal-pairs-privacy-audit.md`). Update both together whenever the app's data handling changes.
 - When everything is confirmed, set `privacy.effectiveDate` and `privacy.status: "published"`. This removes the draft banner and allows search indexing.
 
-## Replace artwork: `src/content/art.ts`
+## Studio artwork (Snowy, stickers, hero)
 
-Drop transparent PNG/WebP files at the paths listed in `src/content/art.ts`, under `public/art/…`. Examples: `public/art/penguin-wave.webp` or `public/art/tiles/fox.webp`. Then rebuild. Each file automatically replaces its built-in SVG fallback, and the animal tiles are also used by the mini-game. Keep the original proportions; about 1200 px on the long side is plenty.
+Originals live in `design/source/` (never served). `scripts/build-brand-art.py` turns them into optimised web images in `public/brand/` plus favicons, and writes `src/content/brand-assets.json` (sizes for every image):
+
+```bash
+pip install numpy scipy Pillow
+```
+```bash
+python3 scripts/build-brand-art.py --qa /tmp/brand-qa   # --qa writes light/dark contact sheets
+```
+
+The script checks real transparency, splits the pose and sticker sheets per grid cell (and refuses a piece that crosses into a neighbouring cell), removes stray specks, recolours soft edges to prevent halos, pads evenly and never upscales. Each sticker is its own file; sprite sheets are never served. Use them through `src/components/Brand.tsx` (`Snowy`, `SnowyMark`, `SnowyPromo`, `Sticker`, `HeroCanyon`). Snowy is the studio mascot; the penguin (`illustrations/Penguin.tsx`) appears as one of her friends, and Pebble stays an Animal Pairs character.
 
 App screenshots, the app icon, the wordmark and character pictures live in `public/games/<slug>/`. They are listed in the game's entry in `site.ts`. Only use real captures from the working app as screenshots; concept mockups are design references only.
 
-To regenerate the favicon PNG and social image after design changes, run `npm run build`, then `npm run preview`, then `node scripts/make-images.cjs`.
+To regenerate the social-sharing image after design changes, run `npm run build`, then `npm run preview`, then `node scripts/make-images.cjs`.
+
+## Domain
+
+`studio.siteUrl` comes from the build variable `SITE_URL` (default: the planned `https://littlesnowyowl.com`). Canonical tags and the sitemap are only emitted when `SITE_LIVE=true`, so previews never advertise a domain that isn't connected. Once littlesnowyowl.com is attached to the Worker (Settings → Domains & Routes) and HTTPS works: set `SITE_URL` (and, at launch, `SITE_LIVE=true`) as production build variables, and add a www → apex redirect rule in Cloudflare.
 
 ## Add another game
 

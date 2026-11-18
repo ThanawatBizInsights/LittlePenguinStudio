@@ -20,5 +20,5 @@ Run `npm run check:release`. It must pass before anything is deployed.
 - [ ] Confirm the release build is built from the audited code; App Privacy answer: Data Not Collected, no tracking
 
 ## Website
-- [ ] Optional: plush artwork files for `src/content/art.ts`
+- [ ] Connect littlesnowyowl.com to the Worker; after HTTPS works set `SITE_URL` (see README → Domain)
 - [ ] Domain, mailbox and Cloudflare Pages (`docs/setup-guide.md`)

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { gamePaths, games, getGame } from "@/content/site";
+import { gamePaths, games, getGame, studio } from "@/content/site";
 import { Container, CurvedSection, Eyebrow } from "@/components/Curve";
 import { Button, TextLink } from "@/components/Button";
 import { AppInfoTable, GameKeyArt, ScreenshotGallery, StoreCta, accentBg } from "@/components/GameParts";
 import { GameSubNav } from "@/components/GameSubNav";
 import { Cloud, Wave } from "@/components/illustrations/Decor";
+import { canonical } from "@/content/env";
 
 /* eslint-disable @next/next/no-img-element -- static export; images are pre-sized WebP */
 
@@ -17,7 +18,7 @@ export function gameOverviewMetadata(slug: string): Metadata {
   return {
     title: `${game.title} — ${game.tagline}`,
     description,
-    alternates: { canonical: gamePaths(game.slug).overview },
+    alternates: canonical(gamePaths(game.slug).overview),
     openGraph: { title: game.title, description, images: [{ url: game.icon, width: 512, height: 512, alt: `${game.title} app icon` }] },
   };
 }
@@ -35,7 +36,7 @@ export function GameOverviewPage({ slug }: { slug: string }) {
       <section aria-labelledby="game-title">
         <Container className="grid items-center gap-8 pb-12 pt-6 md:grid-cols-2 md:pt-10">
           <div>
-            <Eyebrow>{game.slug === games[0].slug ? "Our first little adventure" : "A Little Penguin Studio game"}</Eyebrow>
+            <Eyebrow>{game.slug === games[0].slug ? "Our first little adventure" : `A ${studio.name} game`}</Eyebrow>
             <h1 id="game-title" className="mt-4">
               <img src={game.wordmark} alt={game.title} width={1000} height={316} className="h-auto w-full max-w-md" />
             </h1>

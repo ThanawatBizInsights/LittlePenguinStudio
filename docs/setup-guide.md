@@ -1,4 +1,6 @@
-# Little Penguin Studio — website, email & App Store readiness plan
+# Little Snowy Owl Studio (formerly Little Penguin Studio) — website, email & App Store readiness plan
+
+> **Rebrand note (19 Nov 2026):** the studio is now **Little Snowy Owl Studio**, with Snowy the owl as mascot, and the intended domain is **littlesnowyowl.com**. References below to littlepenguinstudio.com and to @littlepenguinstudio.com addresses are from the original plan. The confirmed support email is still littlepenguinsupport@icloud.com, and the Cloudflare Worker keeps the name `littlepenguinstudio`. Current setup: README.md and docs/cloudflare-testing.md.
 
 > Note: the site has since been rebuilt with Next.js (see README.md). Phase B's file list is historical; URLs and deploy settings below are current.
 

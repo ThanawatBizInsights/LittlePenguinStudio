@@ -3,14 +3,14 @@ import { games, studio } from "@/content/site";
 import { PageIntro, Panel } from "@/components/Content";
 import { Container } from "@/components/Curve";
 import { Button } from "@/components/Button";
-import { Art } from "@/components/Art";
-import { Penguin } from "@/components/illustrations/Penguin";
+import { Snowy, Sticker } from "@/components/Brand";
 import { Cloud, Flower, Sparkle, Star } from "@/components/illustrations/Decor";
+import { canonical } from "@/content/env";
 
 export const metadata: Metadata = {
   title: "Our Story",
   description: studio.story,
-  alternates: { canonical: "/about/" },
+  alternates: canonical("/about/"),
 };
 
 export default function AboutPage() {
@@ -18,20 +18,31 @@ export default function AboutPage() {
     <>
       <PageIntro
         eyebrow="Our story"
-        title="Meet Little Penguin"
+        title={`Meet ${studio.mascotName}`}
         art={
           <div className="relative aspect-square rounded-full bg-mint">
             <Cloud className="absolute left-[2%] top-[12%] w-[28%]" />
             <Sparkle className="absolute right-[12%] top-[8%] w-[12%]" />
             <Star className="absolute right-[4%] top-[40%] w-[14%] motion-safe:animate-twinkle" />
             <div className="absolute bottom-[4%] left-[14%] w-[68%]">
-              <Art slot="penguinReading" alt="Little Penguin reading a picture book" className="w-full" fallback={<Penguin pose="reading" bob className="w-full" title="Little Penguin reading a picture book" />} />
+              <Snowy pose="wave" labelled bob className="w-full" priority />
             </div>
           </div>
         }
       >
         <p>{studio.story}</p>
       </PageIntro>
+
+      <Container className="pb-8">
+        <Panel tone="mint" className="relative overflow-hidden">
+          <Sticker name="feather-a" className="absolute -right-2 -top-2 w-16 rotate-12 sm:w-20" />
+          <h2 className="text-3xl">Who is {studio.mascotName}?</h2>
+          <p className="mt-3 max-w-2xl text-lg">
+            {studio.mascotName} is the little snowy owl at the heart of {studio.name}: soft white feathers, silver-grey spots,
+            violet eyes and a tiny three-feather tuft. You’ll find her here on our website, waving hello alongside her friends.
+          </p>
+        </Panel>
+      </Container>
 
       <Container className="grid gap-6 pb-8 md:grid-cols-2">
         <Panel tone="butter">
