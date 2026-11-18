@@ -17,12 +17,22 @@ Open **dash.cloudflare.com → Workers & Pages → `littlepenguinstudio`** (the 
 | Setting | Value |
 |---|---|
 | Git repository | `ThanawatBizInsights/LittlePenguinStudio` |
-| Production branch (Branch control) | `main` |
-| Builds for non-production branches | **Enabled** |
+| Production branch | `main` |
 | Build command | *(leave empty — `wrangler.toml` runs the build)* |
 | Deploy command | `npx wrangler deploy` |
-| Non-production branch deploy command | `npx wrangler versions upload` |
 | Root directory | `/` *(default)* |
+
+**Branch previews (Workers Previews).** This Worker uses Cloudflare's newer *Workers Previews* layout: instead of a "non-production branch deploy command", a **Preview** tracks one branch and has its own settings:
+
+| Preview setting | Value |
+|---|---|
+| Tracking branch | `claude/lucid-clarke-ief7bj` |
+| Preview builds | **On** (builds when the tracking branch is pushed) |
+| Build command | `npm run build` or empty (`wrangler.toml` builds either way) |
+| **Preview command** | `npx wrangler preview` |
+| Root directory | `/` |
+
+`wrangler preview` (Wrangler 4.135+) creates a preview deployment only; `scripts/cf-build.mjs` treats it as a preview build, so only `wrangler deploy` on production is held to the release check.
 
 The Worker's name in the dashboard must be **`littlepenguinstudio`**, matching `name` in `wrangler.toml`.
 
@@ -34,7 +44,7 @@ The Worker's name in the dashboard must be **`littlepenguinstudio`**, matching `
 
 ## 2. Build a preview
 
-Cloudflare builds a branch only when it is **pushed**, and only if **Builds for non-production branches** was already enabled at that moment.
+Cloudflare builds the preview only when the tracking branch is **pushed** after **Preview builds** was turned on.
 
 **To retry a build:**
 1. Go to **dash.cloudflare.com** → **Compute (Workers)** → **Workers & Pages** → **littlepenguinstudio**.
@@ -42,7 +52,7 @@ Cloudflare builds a branch only when it is **pushed**, and only if **Builds for 
 3. Click the row for branch `claude/lucid-clarke-ief7bj` (or its **⋯** menu) and choose **Retry build**.
 
 **If there is no row for that branch** (only `main`, failing with “Not ready to publish”), the branch has never been built:
-- check **Settings → Build → Branch control**: **Builds for non-production branches** is enabled, and the non-production deploy command is `npx wrangler versions upload`;
+- check the Preview's settings: **Tracking branch** `claude/lucid-clarke-ief7bj`, **Preview builds** on, **Preview command** `npx wrangler preview`;
 - then push any change to the branch (or ask Claude to). The build starts by itself.
 
 When the build finishes, open it. The **preview URL** is in the build log and the version details. It usually looks like
