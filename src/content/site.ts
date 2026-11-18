@@ -286,7 +286,7 @@ export const appDetailLabels: Record<keyof AppDetails, string> = {
   availability: "Availability",
 };
 
-export const TO_BE_CONFIRMED = "Details to be confirmed";
+export const TO_BE_CONFIRMED = "To be confirmed";
 
 export const statusLabel: Record<GameStatus, string> = {
   "in-development": "Coming to the App Store",
@@ -329,14 +329,24 @@ export const nav = [
 ] as const;
 
 /** Every publishing fact still missing for a game's public pages. */
-export function unresolvedFacts(game: Game): { label: string; where: string }[] {
-  const out: { label: string; where: string }[] = [];
-  if (!studio.publisherName) out.push({ label: PH.publisher, where: "studio.publisherName" });
-  if (!studio.supportEmail) out.push({ label: PH.supportEmail, where: "studio.supportEmail" });
-  if (!studio.privacyEmail) out.push({ label: PH.privacyEmail, where: "studio.privacyEmail" });
-  if (!studio.supportEmailRetention) out.push({ label: PH.emailRetention, where: "studio.supportEmailRetention" });
-  if (!game.privacy.effectiveDate) out.push({ label: PH.effectiveDate, where: "privacy.effectiveDate" });
-  if (!game.details.ageRating) out.push({ label: PH.ageRating, where: "details.ageRating" });
-  if (!game.details.availability) out.push({ label: PH.availability, where: "details.availability" });
+export type UnresolvedFact = {
+  /** Machine label, e.g. "[LEGAL PUBLISHER NAME]" (used by the release check). */
+  label: string;
+  /** Plain name shown in the draft notice. */
+  name: string;
+  /** Where to fill it in. */
+  where: string;
+};
+
+export function unresolvedFacts(game: Game): UnresolvedFact[] {
+  const out: UnresolvedFact[] = [];
+  const add = (label: string, name: string, where: string) => out.push({ label, name, where });
+  if (!studio.publisherName) add(PH.publisher, "legal publisher name", "studio.publisherName");
+  if (!studio.supportEmail) add(PH.supportEmail, "support email", "SUPPORT_EMAIL");
+  if (!studio.privacyEmail) add(PH.privacyEmail, "privacy contact email", "SUPPORT_EMAIL");
+  if (!studio.supportEmailRetention) add(PH.emailRetention, "support email retention period", "studio.supportEmailRetention");
+  if (!game.privacy.effectiveDate) add(PH.effectiveDate, "privacy policy effective date", "privacy.effectiveDate");
+  if (!game.details.ageRating) add(PH.ageRating, "App Store age rating", "details.ageRating");
+  if (!game.details.availability) add(PH.availability, "release countries or regions", "details.availability");
   return out;
 }

@@ -17,7 +17,8 @@ let problems = 0;
 for (const f of files) {
   const html = readFileSync(f, "utf8");
   const found = new Set();
-  for (const m of html.matchAll(/<mark data-placeholder=""[^>]*>([^<]*)<\/mark>/g)) found.add(m[1]);
+  // Placeholders show "To be confirmed" to visitors; the fact's label is in the attribute.
+  for (const m of html.matchAll(/<mark[^>]*\bdata-placeholder="([^"]*)"/g)) found.add(m[1] || "unlabelled placeholder");
   for (const m of html.matchAll(/Draft for review — not ready to publish/g)) found.add("draft banner");
   if (found.size) {
     problems += found.size;
