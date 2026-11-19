@@ -70,7 +70,7 @@ export function GameCard({ game }: { game: Game }) {
         <p className="text-ink-soft">{game.tagline}</p>
         {game.premium ? (
           <p className="text-sm font-semibold">
-            Free {game.boards.filter((b) => !b.plus).map((b) => `${b.cards}-card`).join(" and ")} board · {game.premium.name} unlocks more
+            Free Classic with {game.boards.filter((b) => !b.plus).map((b) => b.cards).join(" or ")} cards · {game.premium.name} adds more
           </p>
         ) : null}
         <span className="mt-auto inline-flex items-center justify-between pt-2 font-semibold">

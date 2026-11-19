@@ -112,7 +112,7 @@ export function GameOverviewPage({ slug }: { slug: string }) {
                   <p className="font-display text-xl font-semibold">
                     {m.name}
                     {m.plus && game.premium ? (
-                      <span className="ml-2 rounded-full bg-lilac px-2.5 py-0.5 align-middle font-sans text-xs font-extrabold uppercase">Plus</span>
+                      <span className="ml-2 rounded-full bg-lilac px-2.5 py-0.5 align-middle font-sans text-xs font-extrabold uppercase">Full Game</span>
                     ) : null}
                   </p>
                   <p className="text-ink-soft">{m.text}</p>
@@ -149,14 +149,14 @@ export function GameOverviewPage({ slug }: { slug: string }) {
                   <ul className="mt-2 list-disc space-y-1 pl-6">{game.premium.free.map((f) => <li key={f}>{f}</li>)}</ul>
                 </div>
                 <div>
-                  <h3 className="text-xl">Added by {game.premium.name} ({game.premium.period} subscription)</h3>
+                  <h3 className="text-xl">Added by {game.premium.name} (one-time purchase)</h3>
                   <ul className="mt-2 list-disc space-y-1 pl-6">{game.premium.adds.map((f) => <li key={f}>{f}</li>)}</ul>
                 </div>
               </div>
               <p className="mt-5 text-ink-soft">
-                A grown-up subscribes in the app’s Parents area, behind a grown-ups check. The price is shown there and in
-                the App Store. It renews automatically each month until cancelled, and can be cancelled at any time in the
-                Apple Account’s subscription settings.
+                A grown-up buys it once in the app’s Parents area, behind a grown-ups check. The price is shown there and in
+                the App Store. It is not a subscription: nothing renews and it never expires. Restore Purchases brings it
+                back on any iPhone or iPad signed in to the same Apple Account.
               </p>
               <p className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
                 <TextLink href={game.premium.termsOfUseUrl}>Terms of Use (Apple standard EULA)</TextLink>

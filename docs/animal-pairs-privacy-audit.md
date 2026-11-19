@@ -4,7 +4,16 @@
 
 **Method:** a static review of the source code, Xcode project settings, Info.plist, privacy manifest and in-app text. No compiled release binary (.ipa) was inspected, and the app was not run with network monitoring. **Before publishing, confirm that the build uploaded to App Store Connect is built from this code (or re-run these checks on the final commit).**
 
-## Update: re-check at commit `64888ba` (19 November 2026)
+## Update: re-check at commit `cb8c738` (19 November 2026) — current
+
+The paid tier changed again: the monthly subscription below was replaced before release (it only ever existed in the local StoreKit test file).
+
+- **Free tier:** Classic mode with 6 or 12 cards, unlimited play (`starterBoards = [.six, .twelve]`, `starterModes = [.classic]`).
+- **Paid tier:** "Full Game Unlock", one **non-consumable** in-app purchase (StoreKit 2), product ID `com.littlepenguinstudio.animalpairs.fullgame`. It adds Classic 16 and 20, Exact Pose at every board size and the 70 extra pose pictures; the definition is `FullGameUnlock.features` in AnimalPairsCore. Parents area: "One-time purchase", the StoreKit price, "Buy Full Game Unlock for {price}", "Restore Purchases", "Redeem Offer Code", privacy link (Terms of Use link when `AP_TERMS_OF_USE_URL` is set). No renewal, expiry or Manage Subscription.
+- **Local storage:** the cached ID of the last verified Full Game Unlock transaction (no end date). The retired subscription cache key `purchases.verifiedEntitlement` is deleted at launch.
+- **Unchanged:** no new packages, network calls, permissions, accounts or data collection. App Privacy answers stay "Data Not Collected" / no tracking.
+
+## Earlier update: re-check at commit `64888ba` (19 November 2026) — superseded
 
 The paid tier changed after the original audit. At `64888ba` ("Rename SubscriptionRenewalState to avoid a clash with StoreKit") on the same branch:
 

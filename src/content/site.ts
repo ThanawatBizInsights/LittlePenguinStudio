@@ -64,18 +64,20 @@ export type Game = {
   details: AppDetails;
   /**
    * Optional paid tier, exactly as the release build sells it. Animal Pairs
-   * (iOS commit 64888ba): "Animal Pairs Plus", one auto-renewing monthly
-   * subscription; the price comes from the App Store and is never stated here.
+   * (iOS commit cb8c738): "Full Game Unlock", one non-consumable in-app
+   * purchase — bought once, never expires, not a subscription. The price
+   * comes from the App Store and is never stated here. `adds` lists only what
+   * ships with that purchase today; future themes are not included unless the
+   * app's `FullGameUnlock.features` is changed to include them.
    */
   premium: null | {
     name: string;
-    kind: "subscription";
-    period: "monthly";
+    kind: "one-time";
     /** One-line summary of what is free and what the paid tier adds. */
     offer: string;
     free: string[];
     adds: string[];
-    /** Terms of Use for the subscription (Apple's standard EULA unless a custom one is supplied). */
+    /** Terms of Use (Apple's standard EULA unless a custom one is supplied). */
     termsOfUseUrl: string;
   };
   privacy: {
@@ -170,7 +172,7 @@ export const games: Game[] = [
     ],
     boards: [
       { cards: 6, layout: "3 × 2", plus: false },
-      { cards: 12, layout: "4 × 3", plus: true },
+      { cards: 12, layout: "4 × 3", plus: false },
       { cards: 16, layout: "4 × 4", plus: true },
       { cards: 20, layout: "5 × 4", plus: true },
     ],
@@ -211,7 +213,7 @@ export const games: Game[] = [
       {
         src: `${ap}/screenshots/board-12-start.webp`,
         alt: "A fresh board of 12 lavender cards with paw prints, all face down, with a Hint button below.",
-        caption: "A fresh 12-card board (Animal Pairs Plus)",
+        caption: "A fresh 12-card board",
         width: 820,
         height: 1180,
         device: "iPad",
@@ -227,7 +229,7 @@ export const games: Game[] = [
       {
         src: `${ap}/screenshots/board-20.webp`,
         alt: "A 20-card board showing 4 of 10 pairs found, with matched bunny, kitten and penguin cards face up.",
-        caption: "A 20-card board (Animal Pairs Plus)",
+        caption: "A 20-card board (Full Game Unlock)",
         width: 820,
         height: 1180,
         device: "iPad",
@@ -251,7 +253,7 @@ export const games: Game[] = [
       {
         src: `${ap}/screenshots/iphone-round.webp`,
         alt: "A 12-card round on iPhone with 3 of 6 pairs found: matched bear, kitten and penguin pairs face up with green ticks, and a duckling and a bunny turned over.",
-        caption: "Matched pairs stay face up (12 cards, Animal Pairs Plus)",
+        caption: "Matched pairs stay face up (12 cards)",
         width: 600,
         height: 1298,
         device: "iPhone",
@@ -274,26 +276,25 @@ export const games: Game[] = [
       supportedDevices: "iPad and iPhone with iPadOS or iOS 17 or later",
       supportedLanguages: "English",
       internetRequirements:
-        "Not needed to play. Only used for the optional Animal Pairs Plus subscription: subscribing, restoring, managing it, offer codes and checking its status.",
+        "Not needed to play. Only used, through Apple, for the optional Full Game Unlock purchase: buying it, restoring it, offer codes and checking it.",
       advertising: "None",
       inAppPurchases:
-        "One optional monthly subscription, Animal Pairs Plus. It renews automatically until cancelled; the price is shown in the App Store.",
+        "One optional one-time purchase, Full Game Unlock. Not a subscription; it never expires. The price is shown in the App Store.",
       /** Countries or regions selected in App Store Connect → Pricing and Availability. */
       availability: null,
     },
     premium: {
-      name: "Animal Pairs Plus",
-      kind: "subscription",
-      period: "monthly",
-      offer: "Play the 6-card board for free. Unlock 12-, 16-, and 20-card boards with Animal Pairs Plus.",
+      name: "Full Game Unlock",
+      kind: "one-time",
+      offer: "Play Classic with 6 or 12 cards for free, as often as you like. A one-time Full Game Unlock adds Classic with 16 and 20 cards and Exact Pose.",
       free: [
-        "Classic mode on the 6-card board (3 × 2, three pairs)",
+        "Classic mode with 6 or 12 cards, unlimited play",
         "All ten animal friends",
         "Sounds, music, hints and progress",
       ],
       adds: [
-        "12-, 16- and 20-card boards",
-        "Exact Pose mode",
+        "Classic mode with 16 and 20 cards",
+        "Exact Pose mode with 6, 12, 16 and 20 cards",
         "70 more pictures of the ten friends playing, napping, waving, celebrating, playing football, playing golf and cooking",
       ],
       // Apple's standard Licensed Application EULA (text confirmed by the owner, 19 Nov 2026).

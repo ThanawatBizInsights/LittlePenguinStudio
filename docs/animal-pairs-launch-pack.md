@@ -2,7 +2,7 @@
 
 Prepared 17 November 2026. Draft for the English-language iPhone and iPad release. Replace every bracketed field and verify features against the final release build before submission.
 
-> **Update, 19 November 2026:** the paid tier is now the **Animal Pairs Plus** monthly subscription (free: the 6-card board only), not the one-time Full Game Unlock described below. See `docs/animal-pairs-privacy-audit.md` and the website copy in `src/content/site.ts`.
+> **Update, 19 November 2026 (later):** the monthly *Animal Pairs Plus* subscription was dropped before release. The paid tier is the one-time, non-consumable **Full Game Unlock** again (product ID `com.littlepenguinstudio.animalpairs.fullgame`). Free: **Classic with 6 or 12 cards**, unlimited play. Full Game Unlock adds Classic 16 and 20, Exact Pose at every board size and 70 more pictures. App Store Connect steps and listing text: `APP_STORE.md` in the iOS repository.
 
 ## 1. Submission materials and decisions
 

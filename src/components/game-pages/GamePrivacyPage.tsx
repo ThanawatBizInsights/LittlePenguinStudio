@@ -16,7 +16,7 @@ export function gamePrivacyMetadata(slug: string): Metadata {
   const ready = game.privacy.status === "published" && unresolvedFacts(game).length === 0;
   return {
     title: `${game.title} Privacy Policy`,
-    description: `How the ${game.title} app handles information: what is stored on the device, subscriptions through Apple, and how parents can contact the publisher.`,
+    description: `How the ${game.title} app handles information: what is stored on the device, purchases through Apple, and how parents can contact the publisher.`,
     alternates: canonical(gamePaths(game.slug).privacy),
     robots: ready ? undefined : { index: false },
   };

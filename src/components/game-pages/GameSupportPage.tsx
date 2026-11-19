@@ -18,7 +18,7 @@ export function gameSupportMetadata(slug: string): Metadata {
   const ready = unresolvedFacts(game).length === 0;
   return {
     title: `${game.title} Support`,
-    description: `Help for ${game.title}: music and sound settings, the Animal Pairs Plus subscription, resetting progress and how to contact ${studio.name}.`,
+    description: `Help for ${game.title}: music and sound settings, Full Game Unlock and restoring purchases, resetting progress and how to contact ${studio.name}.`,
     alternates: canonical(gamePaths(game.slug).support),
     robots: ready ? undefined : { index: false },
   };
