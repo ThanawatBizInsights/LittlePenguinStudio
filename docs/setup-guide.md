@@ -37,7 +37,7 @@ One real mailbox + aliases is enough.
 2. Buy `littlepenguinstudio.com` in Cloudflare Registrar. Turn on auto-renew.
 3. Set up the mailbox provider, add its DNS records in Cloudflare (MX, SPF `TXT`, DKIM, and a DMARC `TXT` starting with `p=none`, tightening to `p=quarantine` after a few weeks). Create the aliases above. Send/receive a test mail.
 4. Enroll in Apple Developer Program as **Individual** (US$99/yr) with your personal Apple ID. Note: the App Store will show your **legal name** as the seller; "Little Penguin Studio" appears on your website and in the app. You can ask Apple to convert to an Organization later once you register a company and get a D-U-N-S number.
-5. In App Store Connect: accept agreements; if selling Full Game Unlock, complete **Paid Apps agreement, tax and banking**.
+5. In App Store Connect: accept agreements; to sell the Animal Pairs Plus subscription, complete the **Paid Apps agreement, tax and banking**, and add the Terms of Use (Apple's standard EULA) link to the App Store description.
 
 ### Phase B — Website (I build this in the repo after approval)
 Plain static HTML + one shared CSS file, no build step (simple to maintain; easy to add an app by copying a folder). Structure:

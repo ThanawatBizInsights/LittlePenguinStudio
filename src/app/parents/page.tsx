@@ -54,6 +54,7 @@ export default function ParentsPage() {
                 <div>
                   <h3 id={`info-${g.slug}`} className="text-3xl">{g.title}</h3>
                   <p className="mt-2 text-ink-soft">{g.summary}</p>
+                  {g.premium ? <p className="mt-3 rounded-2xl bg-butter-soft p-4 font-semibold">{g.premium.offer}</p> : null}
                   <TextLink href={gamePaths(g.slug).overview} className="mt-3">About {g.title}</TextLink>
                   <TextLink href={gamePaths(g.slug).support}>{g.title} support</TextLink>
                 </div>

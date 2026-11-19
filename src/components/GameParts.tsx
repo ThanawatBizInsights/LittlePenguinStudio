@@ -68,6 +68,11 @@ export function GameCard({ game }: { game: Game }) {
       <div className="flex flex-1 flex-col gap-2 p-5">
         <h3 className="text-2xl">{game.title}</h3>
         <p className="text-ink-soft">{game.tagline}</p>
+        {game.premium ? (
+          <p className="text-sm font-semibold">
+            Free {game.boards.filter((b) => !b.plus).map((b) => `${b.cards}-card`).join(" and ")} board · {game.premium.name} unlocks more
+          </p>
+        ) : null}
         <span className="mt-auto inline-flex items-center justify-between pt-2 font-semibold">
           Meet the game <Arrow className="h-5 w-5 transition-transform group-hover:translate-x-1" />
         </span>

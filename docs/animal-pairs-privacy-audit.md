@@ -4,6 +4,18 @@
 
 **Method:** a static review of the source code, Xcode project settings, Info.plist, privacy manifest and in-app text. No compiled release binary (.ipa) was inspected, and the app was not run with network monitoring. **Before publishing, confirm that the build uploaded to App Store Connect is built from this code (or re-run these checks on the final commit).**
 
+## Update: re-check at commit `64888ba` (19 November 2026)
+
+The paid tier changed after the original audit. At `64888ba` ("Rename SubscriptionRenewalState to avoid a clash with StoreKit") on the same branch:
+
+- **Free tier:** Classic mode on the 6-card board only (`starterBoards = [.six]`, `starterModes = [.classic]`). The 12-, 16- and 20-card boards and Exact Pose need the paid tier.
+- **Paid tier:** "Animal Pairs Plus", one auto-renewing **monthly subscription** (StoreKit 2). Parents area buttons: "Subscribe to Animal Pairs Plus", "Restore Purchases", "Manage Subscription", "Redeem Offer Code". Family Sharing is off. The price comes from StoreKit and is never hard-coded. Ask to Buy shows as pending. The one-time "Full Game Unlock" and gift codes in the table below are **superseded**.
+- **New local storage:** the cached ID of the last verified subscription transaction **and the end date of its current period**, so Plus keeps working offline until that date (never longer). Still UserDefaults, still on the device only.
+- **Unchanged:** no new packages, network calls, permissions, accounts or data collection. App Privacy answers stay "Data Not Collected" / no tracking.
+- **Still open:** `systemUptime` remains in `AudioManager.swift` without a System Boot Time (`35F9.1`) entry in `PrivacyInfo.xcprivacy` (issue 2 below). `AP_TERMS_OF_USE_URL` is empty: set it to Apple's standard EULA, `https://www.apple.com/legal/internet-services/itunes/dev/stdeula/` (the website now links the same page). Apple requires a working Terms of Use link in the app and in the App Store description for auto-renewing subscriptions.
+
+The website policy (`src/content/games/animal-pairs.tsx`) was updated to describe the subscription.
+
 ## Findings
 
 | Area | Result | Evidence |

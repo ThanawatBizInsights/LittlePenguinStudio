@@ -32,7 +32,7 @@ export default function SupportHub() {
           </div>
         }
       >
-        <p>Choose a game to find answers to common questions, sound settings and purchase help.</p>
+        <p>Choose a game to find answers to common questions, sound settings and subscription help.</p>
       </PageIntro>
 
       <Container className="space-y-10 pb-6">
@@ -48,7 +48,7 @@ export default function SupportHub() {
                   <img src={g.icon} alt="" width={64} height={64} className="h-16 w-16 rounded-[22%]" />
                   <span className="flex-1">
                     <span className="block font-display text-2xl font-semibold">{g.title} support</span>
-                    <span className="text-ink-soft">Sound, purchases, progress and contact</span>
+                    <span className="text-ink-soft">Sound, subscription, progress and contact</span>
                   </span>
                   <Arrow className="h-6 w-6 transition-transform group-hover:translate-x-1" />
                 </Link>

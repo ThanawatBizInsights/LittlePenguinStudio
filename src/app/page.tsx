@@ -2,8 +2,7 @@ import Link from "next/link";
 import { gamePaths, games, studio } from "@/content/site";
 import { Button, TextLink, Arrow } from "@/components/Button";
 import { Container, CurvedSection, Eyebrow } from "@/components/Curve";
-import { Penguin } from "@/components/illustrations/Penguin";
-import { HeroCanyon, Snowy, SnowyPromo, Sticker } from "@/components/Brand";
+import { HeroCanyon, PenguinFriend, Snowy, SnowyPromo, Sticker } from "@/components/Brand";
 import {
   Bulb, Family, Heart, Puzzle, Shield, Smiley, Sparkle, SpeechBubble, Star, Wave,
 } from "@/components/illustrations/Decor";
@@ -118,6 +117,7 @@ export default function Home() {
               <p className="font-extrabold uppercase tracking-[0.14em] text-coral-deep">Our first little adventure</p>
               <h3 id="featured-title" className="text-[clamp(2.4rem,5vw,3.5rem)]">{featured.title}</h3>
               <p className="text-xl text-ink-soft">{featured.summary}</p>
+              {featured.premium ? <p className="font-semibold">{featured.premium.offer}</p> : null}
               <div className="mt-2 flex flex-wrap items-center gap-4">
                 <Button href={gamePaths(featured.slug).overview} arrow>
                   Meet the game
@@ -178,9 +178,12 @@ export default function Home() {
             </Link>
           </div>
           {/* Snowy waving hello, with her penguin friend beside her */}
-          <div className="relative flex min-h-72 items-end justify-center gap-2 bg-mint px-6 pb-6 pt-14">
-            <Snowy pose="wave" bob className="w-[42%] max-w-[13rem]" />
-            <Penguin pose="cheer" className="w-[34%] max-w-[10.5rem]" />
+          <div className="relative flex min-h-72 flex-col justify-end bg-mint px-5 pb-8 pt-16 sm:px-6 lg:justify-center lg:py-16">
+            {/* Feet share one baseline; the group is centred in the taller desktop column. */}
+            <div className="flex items-end justify-center gap-1">
+              <Snowy pose="wave" bob labelled className="w-[44%] max-w-[13rem]" />
+              <PenguinFriend className="w-[46%] max-w-[13.6rem]" />
+            </div>
             <Sparkle className="absolute right-[16%] top-6 w-10" />
             <Star className="absolute left-[12%] top-8 w-10 motion-safe:animate-twinkle" />
           </div>

@@ -2,6 +2,8 @@
 
 Prepared 17 November 2026. Draft for the English-language iPhone and iPad release. Replace every bracketed field and verify features against the final release build before submission.
 
+> **Update, 19 November 2026:** the paid tier is now the **Animal Pairs Plus** monthly subscription (free: the 6-card board only), not the one-time Full Game Unlock described below. See `docs/animal-pairs-privacy-audit.md` and the website copy in `src/content/site.ts`.
+
 ## 1. Submission materials and decisions
 
 | Item | Status / action |

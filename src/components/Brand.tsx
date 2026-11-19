@@ -123,3 +123,21 @@ export function HeroCanyon({ className = "", alt }: { className?: string; alt: s
     />
   );
 }
+
+/** Snowy's plush penguin friend, waving (cut from the penguin pose sheet). */
+export function PenguinFriend({ className = "", labelled = true }: { className?: string; labelled?: boolean }) {
+  const a = asset("penguin-wave" as AssetName);
+  return (
+    <img
+      src={a.src}
+      width={a.width}
+      height={a.height}
+      alt={labelled ? "Snowy's penguin friend waving" : ""}
+      aria-hidden={labelled ? undefined : true}
+      loading="lazy"
+      decoding="async"
+      className={`h-auto select-none ${className}`}
+      draggable={false}
+    />
+  );
+}

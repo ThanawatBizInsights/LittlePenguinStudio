@@ -22,3 +22,9 @@ Run `npm run check:release`. It must pass before anything is deployed.
 ## Website
 - [ ] Connect littlesnowyowl.com to the Worker; after HTTPS works set `SITE_URL` (see README → Domain)
 - [ ] Domain, mailbox and Cloudflare Pages (`docs/setup-guide.md`)
+
+## Animal Pairs Plus (added 19 Nov 2026)
+- [ ] Recapture the iPhone and iPad **set-up screenshots** from the current build: the existing ones show the 12-card board without a lock (older build). Only the 6-card board is free now.
+- [ ] iOS: set `AP_TERMS_OF_USE_URL` to Apple's standard EULA (`https://www.apple.com/legal/internet-services/itunes/dev/stdeula/`), and add the same link to the App Store description.
+- [ ] iOS: add System Boot Time (`35F9.1`) to `PrivacyInfo.xcprivacy` (`systemUptime` in `AudioManager.swift`).
+- [ ] App Store Connect: create the Animal Pairs Plus subscription (monthly, Family Sharing off) with the final product ID.

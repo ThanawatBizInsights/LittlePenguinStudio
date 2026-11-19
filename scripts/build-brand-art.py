@@ -14,6 +14,8 @@ Sources (kept untouched, not served) in design/source/:
 * snowy-poses.png (2×2)  → brand/snowy-{wave,star,nap,reading}.webp
 * snowy-stickers-a.png (4×3) and snowy-stickers-b.png (3×2) → brand/sticker-*.webp
 * Snowy head mark        → brand/snowy-mark.webp, favicons, apple-touch-icon
+* penguin-poses.webp (2×2, Snowy's plush penguin friend) → only the top-left
+  waving pose is exported: brand/penguin-wave.{webp,png}
 
 Cut-outs: each sheet is split per grid cell; a piece that reaches into a
 neighbouring cell stops the build (no neighbouring artwork can leak in).
@@ -42,6 +44,9 @@ PAD_FRACTION = 0.05
 
 POSES = [["snowy-wave", "snowy-star"],
          ["snowy-nap", "snowy-reading"]]
+PENGUIN_POSES = [["penguin-wave", "penguin-star"],
+                 ["penguin-peek", "penguin-reading"]]
+PENGUIN_EXPORT = ["penguin-wave"]
 STICKERS_A = [["snowflake-a", "star-a", "moon-a", "cloud-a"],
               ["tree-a", "snow-arch-a", "heart-a", "snowballs-a"],
               ["rainbow-a", "leaf-a", "confetti-a", "feather-a"]]
@@ -216,6 +221,13 @@ def main() -> None:
     save_webp(mark, "snowy-mark")
     built["snowy-mark"] = mark
 
+    penguins = split(rgba(SRC / "penguin-poses.webp"), PENGUIN_POSES, "penguin-poses.webp")
+    for name in PENGUIN_EXPORT:
+        image = fit(clean(penguins[name]), 800)
+        save_webp(image, name)
+        image.save(OUT / f"{name}.png", optimize=True)  # PNG copy for other uses (not used by the site)
+        built[name] = image
+
     for sheet, grid in (("snowy-stickers-a.png", STICKERS_A), ("snowy-stickers-b.png", STICKERS_B)):
         for name, arr in split(rgba(SRC / sheet), grid, sheet).items():
             image = fit(clean(arr), 320)
@@ -249,6 +261,8 @@ def main() -> None:
         args.qa.mkdir(parents=True, exist_ok=True)
         contact_sheet(built, (251, 244, 232), args.qa / "brand-on-light.png")
         contact_sheet(built, (28, 35, 80), args.qa / "brand-on-dark.png")
+        friends = {k: built[k] for k in ("snowy-wave", "penguin-wave")}
+        contact_sheet(friends, (159, 224, 196), args.qa / "friends-on-mint.png")
     print(f"built {len(built)} cut-outs, hero x2, favicons → {OUT.relative_to(ROOT)}")
 
 

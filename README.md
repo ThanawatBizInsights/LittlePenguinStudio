@@ -59,7 +59,7 @@ pip install numpy scipy Pillow
 python3 scripts/build-brand-art.py --qa /tmp/brand-qa   # --qa writes light/dark contact sheets
 ```
 
-The script checks real transparency, splits the pose and sticker sheets per grid cell (and refuses a piece that crosses into a neighbouring cell), removes stray specks, recolours soft edges to prevent halos, pads evenly and never upscales. Each sticker is its own file; sprite sheets are never served. Use them through `src/components/Brand.tsx` (`Snowy`, `SnowyMark`, `SnowyPromo`, `Sticker`, `HeroCanyon`). Snowy is the studio mascot; the penguin (`illustrations/Penguin.tsx`) appears as one of her friends, and Pebble stays an Animal Pairs character.
+The script checks real transparency, splits the pose and sticker sheets per grid cell (and refuses a piece that crosses into a neighbouring cell), removes stray specks, recolours soft edges to prevent halos, pads evenly and never upscales. Each sticker is its own file; sprite sheets are never served. Use them through `src/components/Brand.tsx` (`Snowy`, `SnowyMark`, `SnowyPromo`, `Sticker`, `HeroCanyon`, `PenguinFriend`). Snowy is the studio mascot; her plush penguin friend (`penguin-wave`, cut from `design/source/penguin-poses.webp`) waves beside her on the homepage, and Pebble stays an Animal Pairs character.
 
 App screenshots, the app icon, the wordmark and character pictures live in `public/games/<slug>/`. They are listed in the game's entry in `site.ts`. Only use real captures from the working app as screenshots; concept mockups are design references only.
 
