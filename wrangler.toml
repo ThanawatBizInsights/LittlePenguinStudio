@@ -18,3 +18,9 @@ directory = "./out"
 not_found_handling = "404-page"
 # /games/animal-pairs → /games/animal-pairs/ (matches Next's trailingSlash: true).
 html_handling = "auto-trailing-slash"
+
+# Required by `npx wrangler preview` (the Workers Previews command). Empty on
+# purpose: this Worker has no vars or bindings, and assets/compatibility
+# settings stay at the top level. Previews do not inherit production settings,
+# so any future vars/bindings must also be added under [previews].
+[previews]
