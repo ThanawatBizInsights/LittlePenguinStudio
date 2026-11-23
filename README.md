@@ -1,6 +1,8 @@
 # Little Snowy Owl Studio website
 
-Studio website for **Little Snowy Owl Studio** (mascot: **Snowy**, a snowy owl), built with Next.js, TypeScript and Tailwind CSS. It is exported as a fully static site (`out/`) served by a Cloudflare Worker. The intended custom domain is **littlesnowyowl.com** (not connected yet; see *Domain* below). It has no server, analytics, cookies, trackers or accounts.
+Studio website for **Little Snowy Owl Studio** (mascot: **Snowy**, a snowy owl), built with Next.js, TypeScript and Tailwind CSS. It is exported as a fully static site (`out/`) served by a Cloudflare Worker. It is live at **https://littlesnowyowl.com** (see *Domain* below). It has no server, analytics, cookies, trackers or accounts.
+
+Repository: `ThanawatBizInsights/LittleSnowyOwlStudio` (renamed from `LittlePenguinStudio` on 23 Nov 2026; GitHub redirects the old URL). The Cloudflare Worker keeps its original name, `littlepenguinstudio`, so preview URLs and the littlesnowyowl.com custom domain are unchanged.
 
 ## Run and preview
 

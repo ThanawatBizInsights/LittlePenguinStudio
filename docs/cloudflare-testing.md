@@ -16,7 +16,7 @@ Open **dash.cloudflare.com → Workers & Pages → `littlepenguinstudio`** (the 
 
 | Setting | Value |
 |---|---|
-| Git repository | `ThanawatBizInsights/LittlePenguinStudio` |
+| Git repository | `ThanawatBizInsights/LittleSnowyOwlStudio` |
 | Production branch | `main` |
 | Build command | *(leave empty — `wrangler.toml` runs the build)* |
 | Deploy command | `npx wrangler deploy` |
