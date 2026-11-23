@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { gamePaths, games, studio } from "@/content/site";
 import { Button, TextLink, Arrow } from "@/components/Button";
@@ -7,6 +8,10 @@ import {
   Bulb, Family, Heart, Puzzle, Shield, Smiley, Sparkle, SpeechBubble, Star, Wave,
 } from "@/components/illustrations/Decor";
 import { GameCard, StoreCta } from "@/components/GameParts";
+
+import { canonical } from "@/content/env";
+
+export const metadata: Metadata = { alternates: canonical("/") };
 
 const featured = games[0];
 
