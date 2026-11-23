@@ -1,0 +1,17 @@
+# Legacy hostname for the Animal Pairs app build in App Review.
+#
+# The site's Worker was renamed from "littlepenguinstudio" to
+# "littlesnowyowlstudio" on 23 Nov 2026, which retired
+# https://littlepenguinstudio.krai-thanawat.workers.dev/ (Cloudflare error
+# 1042). The submitted Animal Pairs build opens these two URLs from Parents:
+#   /games/animal-pairs/privacy/
+#   /games/animal-pairs/support/
+# This separate Worker takes the old name back and redirects every path to
+# the same path on the live site, so those exact URLs work again.
+#
+# Deploy (not done automatically; not connected to Workers Builds):
+#   cd legacy-redirect && npx wrangler deploy
+name = "littlepenguinstudio"
+main = "src/index.mjs"
+compatibility_date = "2026-11-01"
+workers_dev = true

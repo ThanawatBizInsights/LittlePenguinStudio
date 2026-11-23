@@ -67,6 +67,17 @@ App screenshots, the app icon, the wordmark and character pictures live in `publ
 
 To regenerate the social-sharing image after design changes, run `npm run build`, then `npm run preview`, then `node scripts/make-images.cjs`.
 
+## Legacy hostname (Animal Pairs build in App Review)
+
+The Animal Pairs build submitted before the Worker rename opens
+`https://littlepenguinstudio.krai-thanawat.workers.dev/games/animal-pairs/privacy/`
+and `/support/` from its Parents area. Renaming the Worker retired that hostname
+(Cloudflare error 1042). `legacy-redirect/` is a separate, tiny Worker that takes
+the old name `littlepenguinstudio` back and 301-redirects every path to the same
+path on `https://littlesnowyowl.com`. It is not connected to Workers Builds;
+deploy it once with `cd legacy-redirect && npx wrangler deploy` and test it with
+`npm run test:legacy-redirect`.
+
 ## Domain
 
 `studio.siteUrl` comes from the build variable `SITE_URL` (default: the planned `https://littlesnowyowl.com`). Canonical tags and the sitemap are only emitted when `SITE_LIVE=true`, so previews never advertise a domain that isn't connected. Once littlesnowyowl.com is attached to the Worker (Settings → Domains & Routes) and HTTPS works: set `SITE_URL` (and, at launch, `SITE_LIVE=true`) as production build variables, and add a www → apex redirect rule in Cloudflare.

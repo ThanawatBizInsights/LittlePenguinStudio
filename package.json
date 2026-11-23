@@ -13,7 +13,8 @@
     "build:cloudflare": "node scripts/cf-build.mjs",
     "preview:cloudflare": "wrangler dev --port 8788",
     "deploy:preview": "wrangler versions upload --preview-alias preview",
-    "deploy:production": "npm run check:release && WORKERS_CI_BRANCH=main wrangler deploy"
+    "deploy:production": "npm run check:release && WORKERS_CI_BRANCH=main wrangler deploy",
+    "test:legacy-redirect": "node --test legacy-redirect/test/redirect.test.mjs"
   },
   "dependencies": {
     "@fontsource-variable/fredoka": "5.3.0",
