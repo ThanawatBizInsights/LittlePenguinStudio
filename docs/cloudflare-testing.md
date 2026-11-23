@@ -10,7 +10,7 @@ How it behaves:
 
 ## 1. Settings in the Cloudflare dashboard (one time)
 
-Open **dash.cloudflare.com → Workers & Pages → `littlepenguinstudio`** (the Worker created when you imported the repo).
+Open **dash.cloudflare.com → Workers & Pages → `littlesnowyowlstudio`** (the Worker created when you imported the repo).
 
 **Settings → Build:**
 
@@ -34,7 +34,7 @@ Open **dash.cloudflare.com → Workers & Pages → `littlepenguinstudio`** (the 
 
 `wrangler preview` (Wrangler 4.135+) creates a preview deployment only; `scripts/cf-build.mjs` treats it as a preview build, so only `wrangler deploy` on production is held to the release check.
 
-The Worker's name in the dashboard must be **`littlepenguinstudio`**, matching `name` in `wrangler.toml`.
+The Worker's name in the dashboard must be **`littlesnowyowlstudio`**, matching `name` in `wrangler.toml`.
 
 > **Check the production branch.** Cloudflare pre-fills it with the GitHub repo's *default* branch, which for this repo was `claude/lucid-clarke-ief7bj` (the first branch pushed). Set it to **`main`**. Optionally, also change the default branch in GitHub → repo **Settings → General → Default branch**. Whatever it is set to, any `wrangler deploy` (production) build is refused while placeholders remain; only `versions upload` (preview) builds succeed.
 
@@ -47,7 +47,7 @@ The Worker's name in the dashboard must be **`littlepenguinstudio`**, matching `
 Cloudflare builds the preview only when the tracking branch is **pushed** after **Preview builds** was turned on.
 
 **To retry a build:**
-1. Go to **dash.cloudflare.com** → **Compute (Workers)** → **Workers & Pages** → **littlepenguinstudio**.
+1. Go to **dash.cloudflare.com** → **Compute (Workers)** → **Workers & Pages** → **littlesnowyowlstudio**.
 2. Open the **Deployments** tab and find the list of **builds** (it may be labelled *Builds* or *View build history*). Each row shows a branch and a commit.
 3. Click the row for branch `claude/lucid-clarke-ief7bj` (or its **⋯** menu) and choose **Retry build**.
 
@@ -56,7 +56,7 @@ Cloudflare builds the preview only when the tracking branch is **pushed** after 
 - then push any change to the branch (or ask Claude to). The build starts by itself.
 
 When the build finishes, open it. The **preview URL** is in the build log and the version details. It usually looks like
-`https://claude-lucid-clarke-ief7bj-littlepenguinstudio.<your-subdomain>.workers.dev`.
+`https://claude-lucid-clarke-ief7bj-littlesnowyowlstudio.<your-subdomain>.workers.dev`.
 If no URL appears, turn on **Settings → Domains & Routes → Preview URLs** and retry the build.
 
 A failed build for `main` that says **“Not ready to publish”** is expected until every placeholder in `src/content/site.ts` is filled in.
@@ -79,7 +79,7 @@ On **iPhone, iPad and a computer**:
 ## 4. Going live (later)
 
 1. Fill in every placeholder in `src/content/site.ts`, so that `npm run check:release` passes.
-2. Merge the work into `main`. The production build now deploys to `https://littlepenguinstudio.<your-subdomain>.workers.dev`, still noindex.
+2. Merge the work into `main`. The production build now deploys to `https://littlesnowyowlstudio.<your-subdomain>.workers.dev`, still noindex.
 3. **Settings → Domains & Routes → Add → Custom domain:** `littlepenguinstudio.com` (and `www`).
 4. Set the policy's effective date and `privacy.status: "published"`. Add the build variable `SITE_LIVE` = `true` (**Settings → Build → Variables**, production only), and redeploy. The site is now indexable.
 

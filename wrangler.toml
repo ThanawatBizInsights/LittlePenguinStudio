@@ -6,7 +6,7 @@
 # scripts/cf-build.mjs fails production (main) builds while placeholders
 # remain, so a draft can never be deployed — whatever build command is set
 # in the dashboard.
-name = "littlepenguinstudio"
+name = "littlesnowyowlstudio"
 compatibility_date = "2026-11-01"
 
 [build]

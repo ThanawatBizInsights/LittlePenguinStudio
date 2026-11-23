@@ -2,7 +2,7 @@
 
 Studio website for **Little Snowy Owl Studio** (mascot: **Snowy**, a snowy owl), built with Next.js, TypeScript and Tailwind CSS. It is exported as a fully static site (`out/`) served by a Cloudflare Worker. It is live at **https://littlesnowyowl.com** (see *Domain* below). It has no server, analytics, cookies, trackers or accounts.
 
-Repository: `ThanawatBizInsights/LittleSnowyOwlStudio` (renamed from `LittlePenguinStudio` on 23 Nov 2026; GitHub redirects the old URL). The Cloudflare Worker keeps its original name, `littlepenguinstudio`, so preview URLs and the littlesnowyowl.com custom domain are unchanged.
+Repository: `ThanawatBizInsights/LittleSnowyOwlStudio` and Cloudflare Worker `littlesnowyowlstudio` (both renamed from Little Penguin Studio names on 23 Nov 2026; GitHub redirects the old repo URL). Branch previews are at `https://<branch>-littlesnowyowlstudio.krai-thanawat.workers.dev`.
 
 ## Run and preview
 
@@ -80,7 +80,7 @@ To regenerate the social-sharing image after design changes, run `npm run build`
 
 ## Deploy to Cloudflare (Workers static assets)
 
-The site is a Cloudflare **Worker with static assets** named `littlepenguinstudio`, built from GitHub by Workers Builds (production branch `main`). Everything is in `wrangler.toml`:
+The site is a Cloudflare **Worker with static assets** named `littlesnowyowlstudio`, built from GitHub by Workers Builds (production branch `main`). Everything is in `wrangler.toml`:
 - `[assets]` serves `out/`, with a real 404 page and automatic trailing-slash redirects.
 - `[build]` runs `npm run build:cloudflare` on every `wrangler deploy` and `wrangler versions upload`.
 
