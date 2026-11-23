@@ -1,4 +1,4 @@
-# Cloudflare Worker (static assets) for littlepenguinstudio.com.
+# Cloudflare Worker (static assets) for littlesnowyowl.com.
 # The site is a static Next.js export in out/; there is no Worker script.
 #
 # Workers Builds (Git) runs `npx wrangler deploy` on the production branch and

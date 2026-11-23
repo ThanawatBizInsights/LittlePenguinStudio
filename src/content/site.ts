@@ -126,7 +126,7 @@ export const studio: Studio = {
    * The EXACT seller name shown in your Apple Developer account / App Store
    * Connect (Individual enrollment: your legal name). Never the brand name.
    */
-  publisherName: "",
+  publisherName: "Thanawat Kraiananyawich",
   supportEmail: SUPPORT_EMAIL,
   privacyEmail: SUPPORT_EMAIL,
   /**
@@ -272,7 +272,7 @@ export const games: Game[] = [
        * Only the rating produced by App Store Connect's age-rating questionnaire.
        * Never use the intended audience (e.g. "about 3–7") here.
        */
-      ageRating: null,
+      ageRating: "4+",
       supportedDevices: "iPad and iPhone with iPadOS or iOS 17 or later",
       supportedLanguages: "English",
       internetRequirements:
@@ -281,7 +281,7 @@ export const games: Game[] = [
       inAppPurchases:
         "One optional one-time purchase, Full Game Unlock. Not a subscription; it never expires. The price is shown in the App Store.",
       /** Countries or regions selected in App Store Connect → Pricing and Availability. */
-      availability: null,
+      availability: "All countries and regions where the App Store is available",
     },
     premium: {
       name: "Full Game Unlock",
@@ -305,9 +305,9 @@ export const games: Game[] = [
        * Set "published" only once the policy page is live AND its statements
        * have been verified against the release build.
        */
-      status: "draft",
+      status: "published",
       /** The date the final policy is published, e.g. "1 December 2026". */
-      effectiveDate: null,
+      effectiveDate: "23 November 2026",
     },
     accent: "butter",
   },

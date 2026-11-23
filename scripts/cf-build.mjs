@@ -9,7 +9,8 @@
 //     `main`). Previews use `wrangler versions upload` instead.
 // Production builds run the release check, which FAILS while any
 // [PLACEHOLDER] or draft banner remains, so a draft can never be deployed to
-// production. Every other build is a normal preview (noindex unless SITE_LIVE=true).
+// production. Production builds default to SITE_LIVE=true and SITE_URL=https://littlesnowyowl.com.
+// Every other build is a normal preview (noindex unless SITE_LIVE=true).
 import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 
@@ -52,8 +53,14 @@ console.log(
     production ? "PRODUCTION" : "preview"
   } → npm run ${script}`,
 );
-if (production && process.env.SITE_LIVE !== "true") {
-  console.log("Note: SITE_LIVE is not \"true\", so this production build will be noindex.");
+// Production is the public site on littlesnowyowl.com: indexable, with canonical
+// links and a sitemap. (It only ships if the release check below passes.)
+// Set SITE_LIVE=false / SITE_URL as build variables to override. Previews never
+// get these defaults, so they stay noindex.
+if (production) {
+  process.env.SITE_LIVE ??= "true";
+  process.env.SITE_URL ??= "https://littlesnowyowl.com";
+  console.log(`Production: SITE_LIVE=${process.env.SITE_LIVE}, SITE_URL=${process.env.SITE_URL}`);
 }
 
 const result = spawnSync("npm", ["run", script], { stdio: "inherit", shell: process.platform === "win32" });

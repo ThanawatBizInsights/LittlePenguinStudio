@@ -100,7 +100,7 @@ npm run deploy:preview      # preview version with alias "preview" (not producti
 npm run deploy:production   # refuses unless npm run check:release passes
 ```
 
-**Indexing:** every build is `noindex` with `Disallow: /` in robots.txt unless the build variable `SITE_LIVE=true` is set. Set it only for production, on launch day.
+**Indexing:** production builds (`main`, via `scripts/cf-build.mjs`) default to `SITE_LIVE=true` and `SITE_URL=https://littlesnowyowl.com`, so the live site is indexable with canonical links and a sitemap. Every other build is `noindex` with `Disallow: /`. Override with build variables if needed.
 
 **Test locally in Cloudflare's runtime** (applies `_headers`, redirects and the 404 page as Cloudflare will):
 
