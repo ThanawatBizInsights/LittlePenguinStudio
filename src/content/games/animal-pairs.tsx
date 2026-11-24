@@ -293,8 +293,11 @@ export function privacySections(game: Game): Section[] {
                   <td className="px-4 py-3">To show progress in the Parents area</td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-3">An unfinished game: the card layout and progress of the current round</td>
-                  <td className="px-4 py-3">So a round isn’t lost if the app is interrupted</td>
+                  <td className="px-4 py-3">The round in progress: the card layout and progress of the current round</td>
+                  <td className="px-4 py-3">
+                    Saved while you play. The game does not offer to continue it after the app is closed; it is replaced when a new round
+                    starts and removed by Reset progress
+                  </td>
                 </tr>
                 {plus && (
                   <tr className="bg-cream/60">
