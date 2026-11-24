@@ -285,7 +285,7 @@ export function privacySections(game: Game): Section[] {
               </thead>
               <tbody className="bg-paper align-top">
                 <tr>
-                  <td className="px-4 py-3">Settings: music, sound effects and voice on or off; the last game mode and board size chosen</td>
+                  <td className="px-4 py-3">Settings: music, sound effects and voice on or off, whether the speaker button has muted all sound, and the last game mode and board size chosen</td>
                   <td className="px-4 py-3">To remember your choices</td>
                 </tr>
                 <tr className="bg-cream/60">
@@ -358,7 +358,7 @@ export function privacySections(game: Game): Section[] {
             restores purchases or redeems an offer code, and to check purchase status. The app has no server of its own and makes no other connections.
           </p>
           <p>
-            The Parents area contains links to this privacy policy and our support page. They open in the web browser and are only reachable
+            The Parents area contains links to this privacy policy, our support page and the Terms of Use (Apple’s standard licence). They open in the web browser and are only reachable
             after the grown-ups check.
           </p>
         </>
