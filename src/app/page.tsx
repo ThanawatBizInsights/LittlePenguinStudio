@@ -66,9 +66,9 @@ export default function Home() {
               <Sticker name="snowflake-b" className="absolute -right-4 -top-2 hidden w-14 rotate-12 opacity-90 sm:block lg:-right-16" />
               <Eyebrow>Play. Wonder. Discover.</Eyebrow>
               <h1 id="hero-title" className="mt-4 text-[clamp(2.6rem,6vw,4.6rem)] leading-[0.98]">
-                Little games.
+                Made for little
                 <br />
-                Big happy discoveries.
+                moments together.
               </h1>
               <Wave className="mt-5 h-4 w-48" />
               <p className="mt-6 max-w-md text-xl text-ink-soft sm:text-2xl">
