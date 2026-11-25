@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FOOTER_SUPPORT_EMAIL, gamePaths, games, studio } from "@/content/site";
+import { gamePaths, games, studio } from "@/content/site";
 import { Logo } from "./Logo";
 import { Container } from "./Curve";
 import { Sparkle, Wave } from "./illustrations/Decor";
@@ -61,8 +61,8 @@ export function Footer() {
           <Wave className="h-3 w-40" color="#c9b3ec" />
           <p>
             Support:{" "}
-            <a className="underline underline-offset-4 hover:text-butter" href={`mailto:${FOOTER_SUPPORT_EMAIL}`}>
-              {FOOTER_SUPPORT_EMAIL}
+            <a className="underline underline-offset-4 hover:text-butter" href={`mailto:${studio.supportEmail}`}>
+              {studio.supportEmail}
             </a>
           </p>
         </div>
