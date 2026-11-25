@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { gamePaths, games, studio } from "@/content/site";
+import { FOOTER_SUPPORT_EMAIL, gamePaths, games, studio } from "@/content/site";
 import { Logo } from "./Logo";
 import { Container } from "./Curve";
 import { Sparkle, Wave } from "./illustrations/Decor";
@@ -56,19 +56,15 @@ export function Footer() {
         <div className="space-y-3">
           <p className="relative font-display text-2xl font-bold leading-tight">
             <Sparkle className="absolute -left-6 -top-3 h-5 w-5" />
-            Small games.
-            <br />
-            Big little discoveries.
+            Made for little moments together.
           </p>
           <Wave className="h-3 w-40" color="#c9b3ec" />
-          {studio.supportEmail ? (
-            <p>
-              Support:{" "}
-              <a className="underline underline-offset-4 hover:text-butter" href={`mailto:${studio.supportEmail}`}>
-                {studio.supportEmail}
-              </a>
-            </p>
-          ) : null}
+          <p>
+            Support:{" "}
+            <a className="underline underline-offset-4 hover:text-butter" href={`mailto:${FOOTER_SUPPORT_EMAIL}`}>
+              {FOOTER_SUPPORT_EMAIL}
+            </a>
+          </p>
         </div>
       </Container>
       <div className="border-t border-paper/15">

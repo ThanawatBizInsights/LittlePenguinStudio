@@ -115,6 +115,8 @@ export type Studio = {
  * The privacy contact uses the same address.
  */
 const SUPPORT_EMAIL = "littlepenguinsupport@icloud.com";
+/** Support address shown in the shared site footer (owner request, 25 Nov 2026). */
+export const FOOTER_SUPPORT_EMAIL = "littlesnowysupport@icloud.com";
 
 /** Intended custom domain (not yet connected). Override with the SITE_URL build variable. */
 export const PLANNED_SITE_URL = "https://littlesnowyowl.com";
